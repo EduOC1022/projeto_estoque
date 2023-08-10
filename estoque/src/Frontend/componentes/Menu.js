@@ -13,6 +13,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuButton from './Botoes/MenuButton';
+import HomeIcon from '@mui/icons-material/Home';
 
 
 export default function Menu() {
@@ -24,6 +25,7 @@ export default function Menu() {
           <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
+          <HomeIcon sx={{flexGrow: 0.1}}/>
           <SearchIcon/>
           <Box sx={{flexGrow: 1}}>
             
@@ -38,14 +40,11 @@ export default function Menu() {
           <MenuButton>Venda</MenuButton>
           <MenuButton>Histórico</MenuButton>
           <MenuButton>Estoque</MenuButton>
-        </Box>
-        
+        </Box>        
         </Toolbar>
       </AppBar>
       
-    </Box>
-
-    
+    </Box>   
 
     );
 }

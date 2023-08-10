@@ -4,8 +4,8 @@ import { createTheme } from '@mui/material/styles';
 export default createTheme({
     palette: {
       primary: {
-        main: '#3f51b5',
-        dark: '#2a3eb1',
+        main: '#1769aa',
+        dark: '#455a64',
         light: '#c5cae9'
       },
       secondary: {
