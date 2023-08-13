@@ -5,11 +5,14 @@ import Estoque from "./Frontend/paginas/Estoque";
 import Cadastro from "./Frontend/paginas/Cadastro";
 import './App.css'
 
+
+
+
 function App() {
   return (
-    <>    
-      <Menu/>
-      <Cadastro/>
+    <>
+    <Menu/>
+    <Cadastro/>
     </>
   );
 }
