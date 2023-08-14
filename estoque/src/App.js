@@ -3,7 +3,7 @@ import Menu from "./Frontend/componentes/Menu";
 import Home from "./Frontend/paginas/Home";
 import Estoque from "./Frontend/paginas/Estoque";
 import axios from 'axios';
-import Cadastro from "./Frontend/paginas/Cadastro";
+import Cadastro from "./Frontend/paginas/CadastroF";
 import './App.css'
 
 
