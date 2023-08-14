@@ -5,7 +5,7 @@ import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
 
 
-export default function CadastroF() {
+export default function CadastroC() {
     const icones =[{
                     nome: 'Adicionar',
                     icone: <AddIcon fontSize="large"/>},
@@ -19,6 +19,6 @@ export default function CadastroF() {
                 ]
 
     return (
-        <Headin icones={icones} pagina='Cadastro-fornecedor'/>
+        <Headin icones={icones} pagina='Cadastro-cliente'/>
     );
 }
