@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import MenuIcon from '@mui/icons-material/Menu';
+import {Link} from 'react-router-dom';
 import { Divider, IconButton, Menu, MenuItem} from "@mui/material";
 
 export default function MenuBox(props) {
@@ -21,8 +22,8 @@ export default function MenuBox(props) {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}>
-            <MenuItem onClick={handleClose}>Cadastro Cliente</MenuItem>
-            <MenuItem onClick={handleClose}>Cadastro Fornecedor</MenuItem>
+            <MenuItem component={Link} to="/cadastro-cliente">Cadastro Cliente</MenuItem>
+            <MenuItem component={Link} to="/cadastro-fornecedor">Cadastro Fornecedor</MenuItem>
             <Divider/>
             <MenuItem onClick={handleClose}>Faturamento</MenuItem>
         </Menu>

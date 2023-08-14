@@ -19,6 +19,6 @@ export default function CadastroF() {
                 ]
 
     return (
-        <Headin icones={icones} pagina='Cadastro-fornecedor'/>
+        <Headin icones={icones} pagina='Cadastro Fornecedor'/>
     );
 }
