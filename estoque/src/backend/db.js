@@ -9,7 +9,7 @@ const db = new Pool ({
     port: 5432,
     database: 'estoque'
 });
-const porta = 3000;
+const porta = 3001;
 
 app.use(bodyParser.json());
 
@@ -30,5 +30,5 @@ db.connect();
 console.log("Conectado ao banco de dados");
 
 app.listen(porta, () => {
-    console.log('Servidor iniciado na porta 3000.');
+    console.log('Servidor iniciado na porta 3001.');
 });
