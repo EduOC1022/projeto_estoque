@@ -1,22 +1,7 @@
 import React from "react";
 import Tittle from "./Tittle";
-import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import AddIcon from '@mui/icons-material/Add';
 import IconeButton from "../Botoes/IconButton";
-import { Box, IconButton, Tooltip } from "@mui/material";
-
-/*
-<Tooltip title='Adicionar'>
-                <AddIcon tittle="Adicionar" fontSize="large" sx={{color: 'primary.dark', margin: 1}}/> 
-            </Tooltip>
-            <Tooltip title='Selecionar'>
-                <LibraryAddCheckIcon fontSize="large" sx={{color: 'primary.dark', margin: 1}}/>
-            </Tooltip>
-            <Tooltip title='Filtrar'>
-                <FilterAltIcon fontSize="large" sx={{color: 'primary.dark', margin: 1}}/>
-            </Tooltip>
-*/
+import { Box}  from "@mui/material";
 
 export default function Headin(props) {
     const {pagina, icones} = props

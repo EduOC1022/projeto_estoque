@@ -1,31 +1,28 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
     AppBar,
     Box,
-    Button,
     IconButton,
-    InputAdornment,
     InputBase,
-    TextField,
-    Toolbar,
-    Tooltip,
-    Typography} from '@mui/material';
+    Toolbar} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuButton from './Botoes/MenuButton';
 import HomeIcon from '@mui/icons-material/Home';
+import MenuBox from './MenuBox';
 
 
 export default function Menu() {
     return (
-
+    <>
     <Box sx={{ flexGrow: 1, display: 'flex'}}>
       <AppBar position="static">
         <Toolbar variant="dense">
-          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <MenuIcon />
+          <MenuBox/>
+          <IconButton component={Link} to="/" color= "inherit" sx={{flexGrow: 0.1}}>
+            <HomeIcon />
           </IconButton>
-          <HomeIcon sx={{flexGrow: 0.1}}/>
           <SearchIcon/>
           <Box sx={{flexGrow: 1}}>
             
@@ -36,15 +33,14 @@ export default function Menu() {
           </Box>
           
         <Box sx={{display: 'flex', flexGrow: 0.3, justifyContent: 'space-between'}}>
-          <MenuButton>Compra</MenuButton>
-          <MenuButton>Venda</MenuButton>
-          <MenuButton>Histórico</MenuButton>
-          <MenuButton>Estoque</MenuButton>
+          <MenuButton component={Link} to="/compra">Compra</MenuButton>
+          <MenuButton component={Link} to="/venda">Venda</MenuButton>
+          <MenuButton component={Link} to="/historico">Histórico</MenuButton>
+          <MenuButton component={Link} to="/estoque">Estoque</MenuButton>
         </Box>        
         </Toolbar>
-      </AppBar>
-      
+      </AppBar>      
     </Box>   
-
+    </>
     );
 }
