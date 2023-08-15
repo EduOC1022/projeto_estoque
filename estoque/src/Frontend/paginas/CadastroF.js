@@ -3,7 +3,7 @@ import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
-import {TextField, Grid, Container} from '@mui/material/';
+import {TextField, Grid, Container, Box} from '@mui/material/';
 
 
 
@@ -24,20 +24,22 @@ export default function CadastroF() {
     return (
         <>
         <Headin icones={icones} pagina='Cadastro Fornecedor'/>
-            <Grid container sx={{justifyContent:"center"}}>
-                <Grid item md={2}>
-                    <TextField></TextField>
+        <Box sx={{marginTop:6}}>
+            <Grid container spacing={2} sx={{alignItems:"center", flexDirection:"column"}}>
+                <Grid item xs={6} md={6}>
+                    <TextField id="outlined-basic" label="Nome da Empresa" variant="outlined" />
                 </Grid>
-                <Grid item md={2}>
-                    <TextField></TextField>
+                <Grid item xs={6} md={6}>
+                    <TextField id="outlined-basic" label="CNPJ" variant="outlined" />
                 </Grid>
-                <Grid item md={2}>
-                    <TextField></TextField>
+                <Grid item xs={6} md={6}>
+                    <TextField id="outlined-basic" label="Contato" variant="outlined" />
                 </Grid>
-                <Grid item md={2}>
-                    <TextField></TextField>
+                <Grid item xs={6} md={6}>
+                    <TextField id="outlined-basic" label="Complemento" variant="outlined" />
                 </Grid>
             </Grid>
+        </Box>
         </>
     );
 }
