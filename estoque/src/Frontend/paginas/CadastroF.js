@@ -3,6 +3,7 @@ import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
+import axios from'axios';
 import {TextField, Grid, Button} from '@mui/material/';
 
 function CadastroFornecedor() {
@@ -26,17 +27,21 @@ function CadastroFornecedor() {
   
 
     // eslint-disable-next-line no-unused-vars
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+    const handleSubmit = () => {
+      const dados = {nomeEmpresa, cnpj, contato, complemento}
+
+      axios
+        .post(`http://localhost:3001/cadastro-fornecedor`, {dados})
+        .then((response) =>{    
+          if(response) {
+            console.log('entrou ') 
+          }
+               
+        })
+        .catch(err => console.log(err));}
+      
   
-      const formData = {
-        nomeEmpresa,
-        cnpj,
-        contato,
-        complemento,
-      };
-  
-      try {
+      /* try {
         const response = await fetch('/cadastro-fornecedor', {
           method: 'POST',
           headers: {
@@ -54,12 +59,12 @@ function CadastroFornecedor() {
       } catch (error) {
         console.error(error);
       }
-    };
+    }; */
   
     return (
     <>
     <Headin icones={icones} pagina='Cadastro Fornecedor'/>
-        <form sx={{marginTop:6}} onSubmit={handleSubmit}>
+        <form sx={{marginTop:6}} onSubmit={handleSubmit} >
             <Grid container spacing={2} sx={{alignItems:"center", flexDirection:"column"}}>
                 <Grid item xs={6} md={6}>
                     <TextField id="outlined-basic" label="Nome da Empresa" variant="outlined" value={nomeEmpresa} onChange={(e) => setNomeEmpresa(e.target.value)}/>

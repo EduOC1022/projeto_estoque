@@ -16,8 +16,22 @@ app.use(bodyParser.json());
 db.connect();
 console.log("Conectado ao banco de dados");
 
+app.get('/cadastro-fornecedor', async (req, res) => {
+  try {
+    const pesquisa = 'SELECT * from fornecedor';
+    const resultados = await db.query(pesquisa);
+    const fornecedor = resultados.rows;
+
+    res.json(fornecedor);      
+  }
+  catch (ex) {
+    console.log("Erro: ", ex)
+  }
+});
+
 app.post('/cadastro-fornecedor', async (req, res) => {
   try {
+    console.log('ta aqui')
     const { nomeEmpresa, cnpj, contato, complemento } = req.body;
 
     const query = `INSERT INTO fornecedores (cnpj, nome, complemento,contato ) VALUES ($1, $2, $3, $4)`;
