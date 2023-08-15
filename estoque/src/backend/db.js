@@ -13,21 +13,22 @@ const porta = 3001;
 
 app.use(bodyParser.json());
 
-app.get('/db', async (req, res) => {
-    try {
-      const pesquisa = 'SELECT * FROM cliente';
-      const resultados = await db.query(pesquisa);
-      const lista = resultados.rows;
-      
-      res.json(lista);
-    } catch (ex) {
-      console.log('Erro ao recuperar dados do banco de dados:', ex);
-      res.status(500).send('Erro ao recuperar dados do banco de dados.');
-    }
-  });
-
 db.connect();
 console.log("Conectado ao banco de dados");
+
+app.post('/cadastro-fornecedor', async (req, res) => {
+  try {
+    const { nomeEmpresa, cnpj, contato, complemento } = req.body;
+
+    const query = `INSERT INTO fornecedores (cnpj, nome, complemento,contato ) VALUES ($1, $2, $3, $4)`;
+
+    await dbClient.query(query, [nomeEmpresa, cnpj, contato, complemento]);
+    res.status(200).send('Dados do fornecedor inseridos com sucesso.');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erro ao inserir os dados do fornecedor.');
+  }
+});
 
 app.listen(porta, () => {
     console.log('Servidor iniciado na porta 3001.');
