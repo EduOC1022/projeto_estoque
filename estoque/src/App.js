@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Menu from "./Frontend/componentes/Menu";
 import Home from "./Frontend/paginas/Home";
