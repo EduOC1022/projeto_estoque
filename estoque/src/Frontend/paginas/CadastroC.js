@@ -3,7 +3,8 @@ import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
-import {Container,Button, Grid, TextField } from "@mui/material";
+//import Input from "../componentes/Input/Input";
+import {Container, Box, Button, Grid, TextField } from "@mui/material";
 
 
 export default function CadastroC() {
@@ -26,23 +27,39 @@ export default function CadastroC() {
     return (
         <>
             <Headin icones={icones} pagina='Cadastro Cliente'/>
-            <Container sx={{padding: 8, backgroundColor: 'primary.dark'}}>
-                <Grid container spacing={2}>
-                    <Grid item  md={2}>
-                        <TextField sx={{flexGrow: 1}} label= 'Nome'/>
+            
+                <Grid container spacing={2} >
+                    <Grid item  xs={12} md={6}>
+                    <Box sx={{backgroundColor: 'primary.dark', display: 'flex', justifyContent: 'center'}}>
+                        <Container sx={{padding: 8, backgroundColor: 'secondary.light', margin: 8}}>
+                            <Grid container spacing={2} justifyContent='center' alignItems='center'>
+                                <Grid item  md={12}>
+                                    <TextField  fullWidth label= 'Nome Completo'/>
+                                </Grid>
+                                <Grid item  md={6}>
+                                     <TextField pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"  inputProps={{
+                                            inputMode: 'numeric',
+                                        }}fullWidth label= 'CPF'/> 
+                                </Grid>
+                                <Grid item md={6}>
+                                    <TextField maxlength="12" OnKeyPress="formatar('##-#####-#####',this)" fullWidth label= 'Contato'/>
+                                </Grid>
+                                <Grid item md={12}>
+                                    <TextField  multiline rows={2} fullWidth label= 'Detalhes'/>
+                                </Grid>
+                            </Grid>
+                            <Button/>
+                        </Container>
+                        </Box>
                     </Grid>
-                    <Grid item md={4}>
-                        <TextField sx={{flexGrow: 1}} label= 'Sobrenome'/>
-                    </Grid>
-                    <Grid item  md={3}>
-                        <TextField label= 'CPF'/>
-                    </Grid>
-                    <Grid item md={3}>
-                        <TextField label= 'Telefone'/>
+                    <Grid item  xs={12} md={6}>
+                        <Box>
+
+                        </Box>
                     </Grid>
                 </Grid>
-                <Button/>
-            </Container>
+           
+            
         </>
 
     );
