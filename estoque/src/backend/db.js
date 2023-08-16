@@ -5,7 +5,7 @@ const {Pool} = require('pg');
 const db = new Pool ({
     user: 'postgres',
     password: 'stt123',
-    host: '150.162.186.69',
+    host: '150.162.187.159',
     port: 5432,
     database: 'estoque'
 });
@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 db.connect();
 console.log("Conectado ao banco de dados");
 
-app.get('/cadastro-fornecedor', async (req, res) => {
+app.get('/fornecedores', async (req, res) => {
   try {
     const pesquisa = 'SELECT * from fornecedor';
     const resultados = await db.query(pesquisa);
