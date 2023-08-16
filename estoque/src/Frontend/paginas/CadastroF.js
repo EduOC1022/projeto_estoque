@@ -30,7 +30,11 @@ function CadastroFornecedor() {
   
       try {
         const response = await axios.post('http://localhost:3001/fornecedor', { 
-          cnpj: cnpj, nome: nome, tipo: tipo, contato: contato });
+          cnpj: cnpj, 
+          nome: nome, 
+          tipo: tipo, 
+          contato: contato 
+        });
         console.log(response.data); // Recurso criado com sucesso
       } catch (error) {
         console.error(error);
@@ -40,8 +44,9 @@ function CadastroFornecedor() {
     return (
     <>
     <Headin icones={icones} pagina='Cadastro Fornecedor'/>
-      <div id="formulario">
+      {/* <div id="formulario"> */}
         <form onSubmit={handleSubmit} >
+        <Grid container spacing={2} sx={{alignItems: 'center', flexDirection: 'column'}}>
                 <Grid item sx={{}} xs={6} md={6}>
                     <TextField id="outlined-basic" label="Nome da Empresa" variant="outlined" value={nome} onChange={(e) => setNome(e.target.value)}/>
                 </Grid>
@@ -55,8 +60,9 @@ function CadastroFornecedor() {
                     <TextField id="outlined-basic" label="Complemento" variant="outlined" value={tipo} onChange={(e) => setTipo(e.target.value)}/>
                 </Grid>
              <Button sx={{marginTop:2}} variant="contained" type="submit">Cadastrar</Button>
+             </Grid>
         </form>
-      </div>
+      {/* </div> */}
     </>
     );
   }
