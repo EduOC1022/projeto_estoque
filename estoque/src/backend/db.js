@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const {Pool} = require('pg');
 const db = new Pool ({
     user: 'postgres',
@@ -11,12 +12,13 @@ const db = new Pool ({
 });
 const porta = 3001;
 
+app.use(cors());
 app.use(bodyParser.json());
 
 db.connect();
 console.log("Conectado ao banco de dados");
 
-app.get('/fornecedores', async (req, res) => {
+app.get('/listaFornecedor', async (req, res) => {
   try {
     const pesquisa = 'SELECT * from fornecedor';
     const resultados = await db.query(pesquisa);
@@ -29,18 +31,17 @@ app.get('/fornecedores', async (req, res) => {
   }
 });
 
-app.post('/cadastro-fornecedor', async (req, res) => {
+app.post('/fornecedor', async (req, res) => {
   try {
-    console.log('ta aqui')
-    const { nomeEmpresa, cnpj, contato, complemento } = req.body;
+    const {cnpj, nome, tipo, contato} = req.body;
 
-    const query = `INSERT INTO fornecedores (cnpj, nome, complemento,contato ) VALUES ($1, $2, $3, $4)`;
+    const query = 'INSERT INTO fornecedor (cnpj, nome, tipo, contato) VALUES ($1, $2, $3, $4)';
+    await db.query(query, [cnpj, nome, tipo, contato]);
 
-    await dbClient.query(query, [nomeEmpresa, cnpj, contato, complemento]);
-    res.status(200).send('Dados do fornecedor inseridos com sucesso.');
+    res.status(404).send('Recurso criado com sucesso');
   } catch (error) {
     console.error(error);
-    res.status(500).send('Erro ao inserir os dados do fornecedor.');
+    res.status(500).send('Erro ao criar o recurso' );
   }
 });
 
