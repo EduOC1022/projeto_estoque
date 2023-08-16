@@ -31,7 +31,7 @@ function CadastroFornecedor() {
       const dados = {nomeEmpresa, cnpj, contato, complemento}
 
       axios
-        .post(`http://localhost:3001/cadastro-fornecedor`, {dados})
+        .post(`http://localhost:3001/cadastro-fornecedor`, {dados: dados})
         .then((response) =>{    
           if(response) {
             console.log('entrou ') 
