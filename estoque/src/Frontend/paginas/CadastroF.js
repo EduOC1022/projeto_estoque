@@ -44,7 +44,6 @@ function CadastroFornecedor() {
     return (
     <>
     <Headin icones={icones} pagina='Cadastro Fornecedor'/>
-      {/* <div id="formulario"> */}
         <form onSubmit={handleSubmit} >
         <Grid container spacing={2} sx={{alignItems: 'center', flexDirection: 'column'}}>
                 <Grid item sx={{}} xs={6} md={6}>
@@ -62,7 +61,6 @@ function CadastroFornecedor() {
              <Button sx={{marginTop:2}} variant="contained" type="submit">Cadastrar</Button>
              </Grid>
         </form>
-      {/* </div> */}
     </>
     );
   }

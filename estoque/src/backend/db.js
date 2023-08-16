@@ -18,6 +18,8 @@ app.use(bodyParser.json());
 db.connect();
 console.log("Conectado ao banco de dados");
 
+
+// get fornecedor
 app.get('/listaFornecedor', async (req, res) => {
   try {
     const pesquisa = 'SELECT * from fornecedor';
@@ -31,6 +33,7 @@ app.get('/listaFornecedor', async (req, res) => {
   }
 });
 
+// post fornecedor
 app.post('/fornecedor', async (req, res) => {
   try {
     const {cnpj, nome, tipo, contato} = req.body;
@@ -42,6 +45,80 @@ app.post('/fornecedor', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send('Erro ao criar o recurso' );
+  }
+});
+
+
+
+
+// get cliente
+app.get('/listaCliente', async (req, res) => {
+  try {
+    const pesquisa = 'SELECT * from cliente';
+    const resultados = await db.query(pesquisa);
+    const fornecedor = resultados.rows;
+
+    res.json(fornecedor);      
+  }
+  catch (ex) {
+    console.log("Erro: ", ex)
+  }
+});
+
+// post cliente
+app.post('/cliente', async (req, res) => {
+  try {
+    const {cpf, nome, contato, detalhes} = req.body;
+
+    const query = 'INSERT INTO cliente (cpf, nome, contato, detalhes) VALUES ($1, $2, $3, $4)';
+    await db.query(query, [cpf, nome, contato, detalhes]);
+
+    res.status(404).send('Recurso criado com sucesso');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erro ao criar o recurso' );
+  }
+});
+
+// get peca
+app.get('/listaPeca', async (req, res) => {
+  try {
+    const pesquisa = 'SELECT * from peca';
+    const resultados = await db.query(pesquisa);
+    const fornecedor = resultados.rows;
+
+    res.json(fornecedor);      
+  }
+  catch (ex) {
+    console.log("Erro: ", ex)
+  }
+});
+
+// get compra
+app.get('/listaCompra', async (req, res) => {
+  try {
+    const pesquisa = 'SELECT * from compra';
+    const resultados = await db.query(pesquisa);
+    const fornecedor = resultados.rows;
+
+    res.json(fornecedor);      
+  }
+  catch (ex) {
+    console.log("Erro: ", ex)
+  }
+});
+
+// get venda
+app.get('/listaVenda', async (req, res) => {
+  try {
+    const pesquisa = 'SELECT * from venda';
+    const resultados = await db.query(pesquisa);
+    const fornecedor = resultados.rows;
+
+    res.json(fornecedor);      
+  }
+  catch (ex) {
+    console.log("Erro: ", ex)
   }
 });
 
