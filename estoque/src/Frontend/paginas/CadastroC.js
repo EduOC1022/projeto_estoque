@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
 import axios from'axios';
-import {Container, Box, Button, Grid, TextField } from "@mui/material";
+import {Container, Box, Button, Grid, TextField, Typography } from "@mui/material";
 
 
 export default function CadastroC() {
@@ -23,22 +23,42 @@ export default function CadastroC() {
     const [nome, setNome] = useState('');
     const [contato, setContato] = useState('');
     const [detalhes, setDetalhes] = useState('');
+    const [clientes, setClientes] = useState([]);
 
+    //restorna a lista de Clientes
+    useEffect(() => {
+        axios
+            .get('http://localhost:3001/listaCliente')
+            .then((response) => {
+                if (response.data) {
+                    const dados = response.data
+                    console.log('nome:', dados)
+                    console.log('teste', response.nome)
+                    setClientes(dados)
+                }
+            })
+            .catch(err => console.log(err));
+    }, []);
+
+    //cadastra um novo cliente
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        const dados = {
+            cpf: cpf,
+            nome: nome,
+            contato: contato,
+            detalhes: detalhes}
+        
+            console.log('dados: ', dados)
 
-        try {
-            const response = await axios.post('http://localhost:3001/cliente', {
-                cpf: cpf,
-                nome: nome,
-                contato: contato,
-                detalhes: detalhes
-            });
-            console.log(response.data);
-        } catch (error) {
-            console.error(error);
-        }
+        axios
+            .post('http://localhost:3001/cliente', dados)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch (err => console.log(err));
     };
+
+    
 
 
     return (
@@ -70,8 +90,12 @@ export default function CadastroC() {
                         </Box>
                     </Grid>
                     <Grid item  xs={12} md={6}>
-                        <Box>
-
+                        <Box>{
+                            clientes.map((cliente, index) => (
+                                <Typography>{cliente.nome}</Typography>
+                            ))
+                            }
+                            
                         </Box>
                     </Grid>
                 </Grid>
