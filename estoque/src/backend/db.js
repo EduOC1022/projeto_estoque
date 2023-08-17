@@ -3,14 +3,7 @@ const routes = require('./rotas');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const {Pool} = require('pg');
-const db = new Pool ({
-    user: 'postgres',
-    password: 'stt123',
-    host: '150.162.187.74',
-    port: 5432,
-    database: 'estoque'
-});
+const db = require('./dbConfig');
 const porta = 3001;
 
 app.use(cors());
@@ -24,6 +17,7 @@ app.use('/', routes);
 app.listen(porta, () => {
     console.log('Servidor iniciado na porta 3001.');
 });
+
 
 
 // get fornecedor

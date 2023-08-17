@@ -1,18 +1,10 @@
-const { Pool } = require('pg');
-
-const pool = new Pool({
-    user: 'postgres',
-    password: 'stt123',
-    host: '150.162.187.74',
-    port: 5432,
-    database: 'estoque'
-});
+const db = require('../dbConfig');
 
 const Clientes = {
     pesquisar: async (req, res) => {
         try {
           const pesquisa = 'SELECT * from cliente';
-          const resultados = await pool.query(pesquisa);
+          const resultados = await db.query(pesquisa);
           const fornecedor = resultados.rows;
       
           res.json(fornecedor);      
