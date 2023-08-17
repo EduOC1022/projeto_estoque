@@ -1,4 +1,5 @@
 const express = require('express');
+const routes = require('./rotas');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -18,9 +19,15 @@ app.use(bodyParser.json());
 db.connect();
 console.log("Conectado ao banco de dados");
 
+app.use('/', routes);
+
+app.listen(porta, () => {
+    console.log('Servidor iniciado na porta 3001.');
+});
+
 
 // get fornecedor
-app.get('/listaFornecedor', async (req, res) => {
+/* app.get('/listaFornecedor', async (req, res) => {
   try {
     const pesquisa = 'SELECT * from fornecedor';
     const resultados = await db.query(pesquisa);
@@ -31,10 +38,10 @@ app.get('/listaFornecedor', async (req, res) => {
   catch (ex) {
     console.log("Erro: ", ex)
   }
-});
+}); */
 
 // post fornecedor
-app.post('/fornecedor', async (req, res) => {
+/* app.post('/fornecedor', async (req, res) => {
   try {
     const {cnpj, nome, tipo, contato} = req.body;
 
@@ -46,13 +53,10 @@ app.post('/fornecedor', async (req, res) => {
     console.error(error);
     res.status(500).send('Erro ao criar o recurso' );
   }
-});
-
-
-
+}); */
 
 // get cliente
-app.get('/listaCliente', async (req, res) => {
+/* app.get('/listaCliente', async (req, res) => {
   try {
     const pesquisa = 'SELECT * from cliente';
     const resultados = await db.query(pesquisa);
@@ -64,9 +68,11 @@ app.get('/listaCliente', async (req, res) => {
     console.log("Erro: ", ex)
   }
 });
+ */
+
 
 // post cliente
-app.post('/cliente', async (req, res) => {
+/* app.post('/cliente', async (req, res) => {
   try {
     const {cpf, nome, contato, detalhes} = req.body;
 
@@ -78,10 +84,10 @@ app.post('/cliente', async (req, res) => {
     console.error(error);
     res.status(500).send('Erro ao criar o recurso' );
   }
-});
+}); */
 
 // get peca
-app.get('/listaPeca', async (req, res) => {
+/* app.get('/listaPeca', async (req, res) => {
   try {
     const pesquisa = 'SELECT * from peca';
     const resultados = await db.query(pesquisa);
@@ -92,10 +98,10 @@ app.get('/listaPeca', async (req, res) => {
   catch (ex) {
     console.log("Erro: ", ex)
   }
-});
+}); */
 
 // get compra
-app.get('/listaCompra', async (req, res) => {
+/* app.get('/listaCompra', async (req, res) => {
   try {
     const pesquisa = 'SELECT * from compra';
     const resultados = await db.query(pesquisa);
@@ -106,10 +112,10 @@ app.get('/listaCompra', async (req, res) => {
   catch (ex) {
     console.log("Erro: ", ex)
   }
-});
+}); */
 
 // get venda
-app.get('/listaVenda', async (req, res) => {
+/* app.get('/listaVenda', async (req, res) => {
   try {
     const pesquisa = 'SELECT * from venda';
     const resultados = await db.query(pesquisa);
@@ -120,8 +126,4 @@ app.get('/listaVenda', async (req, res) => {
   catch (ex) {
     console.log("Erro: ", ex)
   }
-});
-
-app.listen(porta, () => {
-    console.log('Servidor iniciado na porta 3001.');
-});
+}); */

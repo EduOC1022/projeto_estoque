@@ -26,20 +26,21 @@ function CadastroFornecedor() {
     const [contato, setContato] = useState('');
   
     const handleSubmit = async (event) => {
-      event.preventDefault();
-  
-      try {
-        const response = await axios.post('http://localhost:3001/fornecedor', { 
+      axios
+        .post('http://localhost:3001/fornecedor', { 
           cnpj: cnpj, 
           nome: nome, 
           tipo: tipo, 
           contato: contato 
-        });
-        console.log(response.data); // Recurso criado com sucesso
-      } catch (error) {
-        console.error(error);
-      }
-    };
+        })
+        .then((response) =>{    
+          if(response) {
+            console.log('entrou ') 
+          }
+               
+        })
+        .catch(err => console.log(err));}
+        
 
     return (
     <>
@@ -65,4 +66,4 @@ function CadastroFornecedor() {
     );
   }
   
-  export default CadastroFornecedor;
+  export default CadastroFornecedor
