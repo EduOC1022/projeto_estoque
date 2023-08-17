@@ -6,6 +6,13 @@ import AddIcon from '@mui/icons-material/Add';
 import axios from'axios';
 import {Container, Box, Button, Grid, TextField, Typography } from "@mui/material";
 
+const rows = [
+    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+    createData('Eclair', 262, 16.0, 24, 6.0),
+    createData('Cupcake', 305, 3.7, 67, 4.3),
+    createData('Gingerbread', 356, 16.0, 49, 3.9),
+    ];
 
 export default function CadastroC() {
     const icones =[{
@@ -64,9 +71,8 @@ export default function CadastroC() {
     return (
         <>
             <Headin icones={icones} pagina='Cadastro Cliente'/>
-            
                 <Grid container spacing={2} >
-                    <Grid item  xs={12} md={6}>
+                    <Grid item  xs={12} md={4}>
                     <Box sx={{backgroundColor: 'primary.dark', display: 'flex', justifyContent: 'center'}}>
                         <Container sx={{padding: 8, backgroundColor: 'secondary.light', margin: 8}}>
                             <form onSubmit={handleSubmit}>
@@ -99,8 +105,7 @@ export default function CadastroC() {
                         </Box>
                     </Grid>
                 </Grid>
-           
-            
+                
         </>
 
     );
