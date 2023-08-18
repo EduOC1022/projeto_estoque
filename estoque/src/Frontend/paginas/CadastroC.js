@@ -4,15 +4,15 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
 import axios from'axios';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
+import { DataGrid, GridRowModes,
+    GridToolbarContainer,
+    GridActionsCellItem,
+    GridRowEditStopReasons,} from '@mui/x-data-grid';
 import {Container, Box, Button, Grid, TextField, Typography } from "@mui/material";
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-    ];
 
 export default function CadastroC() {
     const icones =[{
@@ -32,6 +32,39 @@ export default function CadastroC() {
     const [detalhes, setDetalhes] = useState('');
     const [clientes, setClientes] = useState([]);
 
+    
+    const [rowModesModel, setRowModesModel] = React.useState({});
+    //colunas das tabelas
+    const columns = [
+        { field: 'nome', headerName: 'Nome', width: 300, editable: true},
+        { field: 'cpf', headerName: 'CPF', width: 200, editable: true },
+        { field: 'contato', headerName: 'Contato', width: 200, editable: true },
+        { field: 'detalhes', headerName: 'Detalhes', width: 200, editable: true },
+        {field: 'actions', headerName: 'Ações', width: 100,
+        renderCell: (params) => (
+            <>
+              <GridActionsCellItem
+                icon={<EditIcon />}
+                label="Edit"
+            />
+              <GridActionsCellItem
+                icon={<DeleteIcon />}
+                label="Delete"/>
+            </>
+          ),
+        },
+             
+    ];
+
+    const handleRowModesModelChange = (newRowModesModel) => {
+        setRowModesModel(newRowModesModel);
+      };
+
+    const getRowId = (cliente) => cliente.cpf;
+
+    const handleTeste = () => {
+        console.log('deu certo')
+    }
     //restorna a lista de Clientes
     useEffect(() => {
         axios
@@ -70,41 +103,20 @@ export default function CadastroC() {
 
     return (
         <>
-            <Headin icones={icones} pagina='Cadastro Cliente'/>
-                <Grid container spacing={2} >
-                    <Grid item  xs={12} md={4}>
-                    <Box sx={{backgroundColor: 'primary.dark', display: 'flex', justifyContent: 'center'}}>
-                        <Container sx={{padding: 8, backgroundColor: 'secondary.light', margin: 8}}>
-                            <form onSubmit={handleSubmit}>
-                            <Grid container spacing={2} justifyContent='center' alignItems='center'>
-                                <Grid item  md={12}>
-                                    <TextField  fullWidth label= 'Nome Completo' value={nome} onChange={(e) => setNome(e.target.value)}/>
-                                </Grid>
-                                <Grid item  md={6}>
-                                     <TextField fullWidth label= 'CPF' value={cpf} onChange={(e) => setCpf(e.target.value)}/> 
-                                </Grid>
-                                <Grid item md={6}>
-                                    <TextField fullWidth label= 'Contato' value={contato} onChange={(e) => setContato(e.target.value)}/>
-                                </Grid>
-                                <Grid item md={12}>
-                                    <TextField fullWidth label= 'Detalhes' value={detalhes} onChange={(e) => setDetalhes(e.target.value)}/>
-                                </Grid>
-                            <Button variant="contained" sx={{marginTop:2}} type="submit">Cadastrar</Button>
-                            </Grid>
-                            </form>
+            <Headin icones={icones} pagina='Clientes'/>
+                <Box sx={{backgroundColor: 'primary.dark', display: 'flex', justifyContent: 'center', height: '85vh'}}>
+                        <Container sx={{backgroundColor: 'secondary.light'}}>
+                            <DataGrid
+                                columns={columns}
+                                rows={clientes}
+                                getRowId={getRowId}
+                                editMode="row"
+                                rowModesModel={rowModesModel}
+                                onRowModesModelChange={handleRowModesModelChange}
+                                
+                            />  
                         </Container>
-                        </Box>
-                    </Grid>
-                    <Grid item  xs={12} md={6}>
-                        <Box>{
-                            clientes.map((cliente, index) => (
-                                <Typography>{cliente.nome}</Typography>
-                            ))
-                            }
-                            
-                        </Box>
-                    </Grid>
-                </Grid>
+                </Box>
                 
         </>
 
