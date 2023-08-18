@@ -46,22 +46,25 @@ function CadastroFornecedor() {
     <>
     <Headin icones={icones} pagina='Cadastro Fornecedor'/>
         <form onSubmit={handleSubmit} >
-        <Grid container spacing={2} sx={{alignItems: 'center', flexDirection: 'column'}}>
-                <Grid item sx={{}} xs={6} md={6}>
-                    <TextField id="outlined-basic" label="Nome da Empresa" variant="outlined" value={nome} onChange={(e) => setNome(e.target.value)}/>
-                </Grid>
-                <Grid item xs={6} md={6}>
-                    <TextField id="outlined-basic" label="CNPJ" variant="outlined" value={cnpj} onChange={(e) => setCnpj(e.target.value)}/>
-                </Grid>
-                <Grid item xs={6} md={6}>
-                    <TextField id="outlined-basic" label="Contato" variant="outlined" value={contato} onChange={(e) => setContato(e.target.value)}/>
-                </Grid>
-                <Grid item xs={6} md={6}>
-                    <TextField id="outlined-basic" label="Complemento" variant="outlined" value={tipo} onChange={(e) => setTipo(e.target.value)}/>
-                </Grid>
-             <Button sx={{marginTop:2}} variant="contained" type="submit">Cadastrar</Button>
-             </Grid>
+        <Grid container spacing={2} sx={{flexDirection: 'column', alignItems:'center'}}>
+            <Grid item xs={6} md={6}>
+                <TextField id="outlined-basic" label="Nome da Empresa" variant="outlined" value={nome} onChange={(e) => setNome(e.target.value)}/>
+            </Grid>
+            <Grid item xs={6} md={6}>
+                <TextField id="outlined-basic" label="CNPJ" variant="outlined" value={cnpj} onChange={(e) => setCnpj(e.target.value)}/>
+            </Grid>
+            <Grid item xs={6} md={6}>
+                <TextField id="outlined-basic" label="Contato" variant="outlined" value={contato} onChange={(e) => setContato(e.target.value)}/>
+            </Grid>
+            <Grid item xs={6} md={6}>
+                <TextField id="outlined-basic" label="Complemento" variant="outlined" value={tipo} onChange={(e) => setTipo(e.target.value)}/>
+            </Grid>
+            <Grid item xs={6} md={6}>
+                <Button sx={{marginTop:2}} variant="contained" type="submit">Cadastrar</Button>
+            </Grid>
+        </Grid>
         </form>
+        
     </>
     );
   }
