@@ -17,6 +17,4 @@ router.get('/listaFornecedor', (req, res) => {
     Fornecedores.pesquisar(req, res);
   });
 
-
-
 module.exports = router;

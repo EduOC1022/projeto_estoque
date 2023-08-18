@@ -15,9 +15,18 @@ const Fornecedores = {
           res.status(500).send('Erro ao buscar fornecedores.');
         }
       },
-    cadastrar: async (params) =>{
-
-    }
+      cadastrar: async (req, res) => {
+        console.log('req: ',req)
+        try {
+          const {cnpj, nome, tipo,  contato} = req.body;
+          const query = 'INSERT INTO cliente (cnpj, nome, tipo, contato) VALUES ($1, $2, $3, $4) RETURNING *';
+          const values = [cnpj, nome, tipo,  contato];
+          await db.query(query, values);
+      } catch (ex) {
+          console.log("Erro: ", ex);
+          throw ex;
+      }
+  }
 };
 
 module.exports = Fornecedores;

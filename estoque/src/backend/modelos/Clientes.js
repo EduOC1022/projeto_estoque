@@ -19,7 +19,7 @@ const Clientes = {
         const {cpf, nome, contato,  detalhes} = req.body;
         const query = 'INSERT INTO cliente (cpf, nome, contato, detalhes) VALUES ($1, $2, $3, $4) RETURNING *';
         const values = [cpf, nome, contato,  detalhes];
-        await pool.query(query, values);
+        await db.query(query, values);
     } catch (ex) {
         console.log("Erro: ", ex);
         throw ex;
