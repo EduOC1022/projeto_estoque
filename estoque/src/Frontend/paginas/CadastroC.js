@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import TabelaEditavel from "../componentes/Tabela";
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
 import axios from'axios';
@@ -32,35 +33,23 @@ export default function CadastroC() {
     const [detalhes, setDetalhes] = useState('');
     const [clientes, setClientes] = useState([]);
 
+    const teste = [
+        {nome: "Ana", cpf: "123", contato: "123", detalhes: 'ok', id: 1},
+        {nome: "Ana", cpf: "222", contato: "123", detalhes: 'ok',id: 2},
+        {nome: "Ana", cpf: "333", contato: "123", detalhes: 'ok',id: 3}
+    ]
     
-    const [rowModesModel, setRowModesModel] = React.useState({});
     //colunas das tabelas
     const columns = [
-        { field: 'nome', headerName: 'Nome', width: 300, editable: true},
-        { field: 'cpf', headerName: 'CPF', width: 200, editable: true },
-        { field: 'contato', headerName: 'Contato', width: 200, editable: true },
-        { field: 'detalhes', headerName: 'Detalhes', width: 200, editable: true },
-        {field: 'actions', headerName: 'Ações', width: 100,
-        renderCell: (params) => (
-            <>
-              <GridActionsCellItem
-                icon={<EditIcon />}
-                label="Edit"
-            />
-              <GridActionsCellItem
-                icon={<DeleteIcon />}
-                label="Delete"/>
-            </>
-          ),
-        },
-             
-    ];
+        { field: 'nome', headerName: 'Nome', width: 300, },
+        { field: 'cpf', headerName: 'CPF', width: 200, },
+        { field: 'contato', headerName: 'Contato', width: 200,  },
+        { field: 'detalhes', headerName: 'Detalhes', width: 200, },
+        
+        ];
 
-    const handleRowModesModelChange = (newRowModesModel) => {
-        setRowModesModel(newRowModesModel);
-      };
 
-    const getRowId = (cliente) => cliente.cpf;
+    const getRowId = (cliente) => teste.id;
 
     const handleTeste = () => {
         console.log('deu certo')
@@ -98,6 +87,10 @@ export default function CadastroC() {
             .catch (err => console.log(err));
     };
 
+    const handleEdit = async (event) => {
+
+    }
+
     
 
 
@@ -106,14 +99,9 @@ export default function CadastroC() {
             <Headin icones={icones} pagina='Clientes'/>
                 <Box sx={{backgroundColor: 'primary.dark', display: 'flex', justifyContent: 'center', height: '85vh'}}>
                         <Container sx={{backgroundColor: 'secondary.light'}}>
-                            <DataGrid
-                                columns={columns}
-                                rows={clientes}
-                                getRowId={getRowId}
-                                editMode="row"
-                                rowModesModel={rowModesModel}
-                                onRowModesModelChange={handleRowModesModelChange}
-                                
+                            <TabelaEditavel
+                                dados={teste}
+                                colunas={columns}
                             />  
                         </Container>
                 </Box>
