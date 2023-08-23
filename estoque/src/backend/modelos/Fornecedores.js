@@ -26,6 +26,18 @@ const Fornecedores = {
           console.log("Erro: ", ex);
           throw ex;
       }
+  },
+      excluir: async (req, res) => {
+        try {
+          const { id } = req.body;
+          const query = 'DELETE FROM fornecedor WHERE id = $1';
+          await db.query(query, [id]);
+      
+          res.status(404).send('Fornecedor excluído com sucesso');
+        } catch (error) {
+          console.error(error);
+          res.status(500).send('Erro ao excluir o fornecedor' );
+        }
   }
 };
 

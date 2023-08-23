@@ -20,6 +20,7 @@ function CadastroFornecedor() {
     }
     ]
 
+    const [id, setId] = useState('');
     const [cnpj, setCnpj] = useState('');
     const [nome, setNome] = useState('');
     const [tipo, setTipo] = useState('');
@@ -28,10 +29,7 @@ function CadastroFornecedor() {
     const handleSubmit = async (event) => {
       axios
         .post('http://localhost:3001/fornecedor', { 
-          cnpj: cnpj, 
-          nome: nome, 
-          tipo: tipo, 
-          contato: contato 
+          id:id
         })
         .then((response) =>{    
           if(response) {
@@ -41,6 +39,20 @@ function CadastroFornecedor() {
         })
         .catch(err => console.log(err));}
         
+
+        const handleDelete = async (event) => {
+            const dados = {
+                id:id}
+            
+                console.log('dados: ', dados)
+    
+            axios
+                .delete('http://localhost:3001/excluirFornecedor', dados)
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch (err => console.log(err));
+        };
 
     return (
     <>
