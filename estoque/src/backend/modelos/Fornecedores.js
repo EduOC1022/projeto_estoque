@@ -19,7 +19,7 @@ const Fornecedores = {
         console.log('req: ',req)
         try {
           const {cnpj, nome, tipo,  contato} = req.body;
-          const query = 'INSERT INTO cliente (cnpj, nome, tipo, contato) VALUES ($1, $2, $3, $4) RETURNING *';
+          const query = 'INSERT INTO fornecedor (cnpj, nome, tipo, contato) VALUES ($1, $2, $3, $4) RETURNING *';
           const values = [cnpj, nome, tipo,  contato];
           await db.query(query, values);
       } catch (ex) {

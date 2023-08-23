@@ -105,6 +105,26 @@ export default function CadastroC() {
                             />  
                         </Container>
                 </Box>
+
+                <form onSubmit={handleSubmit} >
+        <Grid container spacing={2} sx={{flexDirection: 'column', alignItems:'center'}}>
+            <Grid item xs={6} md={6}>
+                <TextField id="outlined-basic" label="Nome Completo" variant="outlined" value={nome} onChange={(e) => setNome(e.target.value)}/>
+            </Grid>
+            <Grid item xs={6} md={6}>
+                <TextField id="outlined-basic" label="CPF" variant="outlined" value={cpf} onChange={(e) => setCpf(e.target.value)}/>
+            </Grid>
+            <Grid item xs={6} md={6}>
+                <TextField id="outlined-basic" label="Contato" variant="outlined" value={contato} onChange={(e) => setContato(e.target.value)}/>
+            </Grid>
+            <Grid item xs={6} md={6}>
+                <TextField id="outlined-basic" label="Detalhes" variant="outlined" value={detalhes} onChange={(e) => setDetalhes(e.target.value)}/>
+            </Grid>
+            <Grid item xs={6} md={6}>
+                <Button sx={{marginTop:2}} variant="contained" type="submit">Cadastrar</Button>
+            </Grid>
+        </Grid>
+        </form>
                 
         </>
 

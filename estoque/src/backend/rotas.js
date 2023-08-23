@@ -17,4 +17,8 @@ router.get('/listaFornecedor', (req, res) => {
     Fornecedores.pesquisar(req, res);
   });
 
+router.post('/fornecedor', (req, res) => {
+    Fornecedores.cadastrar(req, res);
+  });
+
 module.exports = router;
