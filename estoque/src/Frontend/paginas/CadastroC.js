@@ -27,6 +27,7 @@ export default function CadastroC() {
                     icone: <LibraryAddCheckIcon fontSize="large"/>
                 }];
     
+    const [id, setId] = useState('');
     const [cpf, setCpf] = useState('');
     const [nome, setNome] = useState('');
     const [contato, setContato] = useState('');
@@ -69,7 +70,7 @@ export default function CadastroC() {
             .catch(err => console.log(err));
     }, []);
 
-    //cadastra um novo cliente
+    // cadastra um novo cliente
     const handleSubmit = async (event) => {
         const dados = {
             cpf: cpf,
@@ -81,6 +82,20 @@ export default function CadastroC() {
 
         axios
             .post('http://localhost:3001/cliente', dados)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch (err => console.log(err));
+    };
+
+    const handleDelete = async (event) => {
+        const dados = {
+            id:id}
+        
+            console.log('dados: ', dados)
+
+        axios
+            .delete('http://localhost:3001/excluirCliente', dados)
             .then((response) => {
                 console.log(response.data);
             })

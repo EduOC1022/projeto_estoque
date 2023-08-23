@@ -12,6 +12,10 @@ router.post('/cliente', (req, res) => {
     Clientes.cadastrar(req, res);
   });
 
+router.delete('/excluirCliente', (req, res) => {
+    Clientes.excluir(req, res);
+  });
+
 
 router.get('/listaFornecedor', (req, res) => {
     Fornecedores.pesquisar(req, res);
