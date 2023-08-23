@@ -25,4 +25,8 @@ router.post('/fornecedor', (req, res) => {
     Fornecedores.cadastrar(req, res);
   });
 
+router.delete('/excluirFornecedor', (req, res) => {
+    Fornecedores.excluir(req, res);
+});
+
 module.exports = router;
