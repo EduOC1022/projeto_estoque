@@ -13,18 +13,24 @@ import {Container, Box, Button, Grid, TextField, Typography} from "@mui/material
 
 export default function TabelaEditavel (props) {
     const { colunas, dados, salvar, excluir} = props
-
-    const [editable, setEditable] = useState(false)
+    /* const [editedRows, setEditedRows] = useState({});
+    const [editable, setEditable] = useState(false) */
     const [isInEditMode, setIsInEditMode] = useState(false)
-
     const [editableRows, setEditableRows] = useState(new Set());
+    const [edicaoDados, setEdicaoDados] = useState({});
 
-
+    /* const handleCancelClick = (id) => () => {
+        setRowModesModel({
+          ...rowModesModel,
+          [id]: { mode: GridRowModes.View, ignoreModifications: true },
+        });} */
 
     const columns = [...colunas,  
         {field: 'actions', headerName: 'Ações', width: 100,
         renderCell: (params) => {
-            if (isInEditMode) {
+            const isRowEditable = editableRows.has(params.row.id); 
+
+            if (isRowEditable) {
                 return (
                 <>
                     <GridActionsCellItem
@@ -33,13 +39,18 @@ export default function TabelaEditavel (props) {
                     sx={{
                         color: 'primary.main',
                     }}
-                    //onClick={() => salvar(params.row)}
+                    onClick={() => salvar(params.row)}
                     />
                     <GridActionsCellItem
                     icon={<CancelIcon />}
                     label="Cancel"
                     sx={{
                         color: 'error.main',
+                    }}
+                    onClick={() => {
+                        setIsInEditMode(false);
+                        setEditableRows(new Set());
+                        setEdicaoDados({});
                     }}
                     />
                 </>
@@ -58,7 +69,7 @@ export default function TabelaEditavel (props) {
                     <GridActionsCellItem
                     icon={<DeleteIcon />}
                     label="Delete"
-                    //onClick={() => excluir(params.row)}
+                    onClick={() => excluir(params.row.id)}
                     />
                 </>
                 );
@@ -77,9 +88,11 @@ export default function TabelaEditavel (props) {
         return null;
       };
 
+    
+
     return (
         <Box>
-            <DataGrid rows={dados} columns={columns}  onRowClick={onRowClick}/>
+            <DataGrid rows={dados} columns={columns}  onRowClick={onRowClick} editRowsModel={edicaoDados}/>
         </Box>
     )
 }

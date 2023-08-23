@@ -18,20 +18,16 @@ import {Container, Box, Button, Grid, TextField, Typography } from "@mui/materia
 export default function CadastroC() {
     const icones =[{
                     nome: 'Adicionar',
-                    icone: <AddIcon fontSize="large"/>},
-                {
-                    nome: 'Filtrar',
-                    icone: <FilterAltIcon fontSize="large"/>},
-                {
-                    nome: 'Selecionar',
-                    icone: <LibraryAddCheckIcon fontSize="large"/>
-                }];
+                    icone: <AddIcon fontSize="large"/>}
+                ];
     
     const [cpf, setCpf] = useState('');
     const [nome, setNome] = useState('');
     const [contato, setContato] = useState('');
     const [detalhes, setDetalhes] = useState('');
     const [clientes, setClientes] = useState([]);
+
+    const [editvel, setEditvel] = useState(true);
 
     const teste = [
         {nome: "Ana", cpf: "123", contato: "123", detalhes: 'ok', id: 1},
@@ -41,23 +37,23 @@ export default function CadastroC() {
     
     //colunas das tabelas
     const columns = [
-        { field: 'nome', headerName: 'Nome', width: 300, },
-        { field: 'cpf', headerName: 'CPF', width: 200, },
-        { field: 'contato', headerName: 'Contato', width: 200,  },
-        { field: 'detalhes', headerName: 'Detalhes', width: 200, },
+        { field: 'nome', headerName: 'Nome', width: 300, editable: editvel },
+        { field: 'cpf', headerName: 'CPF', width: 200, editable: editvel} ,
+        { field: 'contato', headerName: 'Contato', width: 200, editable: editvel },
+        { field: 'detalhes', headerName: 'Detalhes', width: 200, editable: editvel}
         
         ];
 
 
-    const getRowId = (cliente) => teste.id;
-
+    const getRowId = (teste) => teste.id;
+    const [editedRows, setEditedRows] = useState({});
     const handleTeste = () => {
         console.log('deu certo')
     }
     //restorna a lista de Clientes
     useEffect(() => {
         axios
-            .get('http://localhost:3001/listaCliente')
+            .get('http://localhost:3002/listaCliente')
             .then((response) => {
                 if (response.data) {
                     const dados = response.data
@@ -70,7 +66,7 @@ export default function CadastroC() {
     }, []);
 
     //cadastra um novo cliente
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event, id) => {
         const dados = {
             cpf: cpf,
             nome: nome,
@@ -80,7 +76,7 @@ export default function CadastroC() {
             console.log('dados: ', dados)
 
         axios
-            .post('http://localhost:3001/cliente', dados)
+            .post('http://localhost:3002/cliente', dados)
             .then((response) => {
                 console.log(response.data);
             })
@@ -102,6 +98,17 @@ export default function CadastroC() {
                             <TabelaEditavel
                                 dados={teste}
                                 colunas={columns}
+                                editRowsModel={editedRows}
+                                onEditCellChange={(params, event) => {
+                                    const { id, field, value } = event;
+                                    setEditedRows((prevEditedRows) => ({
+                                    ...prevEditedRows,
+                                    [id]: {
+                                        ...prevEditedRows[id],
+                                        [field]: value,
+                                    },
+                                    }));
+                                }}
                             />  
                         </Container>
                 </Box>
