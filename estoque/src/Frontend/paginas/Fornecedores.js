@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Headin from "../componentes/Typographies/Headin";
@@ -11,19 +11,15 @@ function CadastroFornecedor() {
 
     const icones =[{
         nome: 'Adicionar',
-        icone: <AddIcon fontSize="large"/>}];
+        icone: <AddIcon fontSize="large" onClick= {() => setAddin(!addin)}/>}];
 
-    const [id, setId] = useState('');
+    
     const [cnpj, setCnpj] = useState('');
     const [nome, setNome] = useState('');
     const [tipo, setTipo] = useState('');
     const [contato, setContato] = useState('');
-
-    const teste = [
-        {nome: "Ana", cnpj: "123", contato: "123", tipo: 'ok', id: 1},
-        {nome: "Ana", cnpj: "222", contato: "123", tipo: 'ok',id: 2},
-        {nome: "Ana", cnpj: "333", contato: "123", tipo: 'ok',id: 3}
-    ]
+    const [fornecedores, setFornecedores] = useState('');
+    const [addin, setAddin] = useState(false)
 
     const columns = [
         { field: 'nome', headerName: 'Nome', width: 300, editable: true },
@@ -32,8 +28,40 @@ function CadastroFornecedor() {
         { field: 'tipo', headerName: 'Tipo', width: 200, editable: true}
     ];
 
+    const getRowId = (fornecedores) => fornecedores.id;
+
+    useEffect(() => {
+
+        axios
+            .get('http://localhost:3001/listaFornecedor')
+            .then((response) => {
+                if (response.data) {
+                    const dados = response.data
+                    setFornecedores(dados)
+                }
+            })
+            .catch(err => console.log(err));
+    }, []);
+    
+    //forca recarregar os dados
+    const carregarDados = async () => {
+        try {
+            console.log('atualizar')
+          axios
+          .get('http://localhost:3001/listaFornecedor')
+          .then((response) => {
+            setFornecedores(response.data);
+          })
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
     //envio para cadastro
-    const handleSubmit = async (event) => {
+    const handleSubmit = async () => {
+
+        setAddin(false);
+
         const dados = {
             cnpj: cnpj,
             nome: nome,
@@ -48,12 +76,17 @@ function CadastroFornecedor() {
                 console.log(response.data);
             })
             .catch (err => console.log(err));
+        await carregarDados();
     };
         
     // Editar fornecedor
-    const handleUpdate = async (event) => {
+    const handleUpdate = async (data) => {
         const dados = {
-            id:id}
+            id:data.id,
+            cnpj: data.cnpj,
+            nome: data.nome,
+            tipo: data.tipo,
+            contato: data.contato}
         
             console.log('dados: ', dados)
 
@@ -66,53 +99,61 @@ function CadastroFornecedor() {
     };
 
     // Excluir fornecedor
-    const handleDelete = async (event) => {
+    const handleDelete = async (data) => {
         const dados = {
-            id:id}
+            id:data}
         
             console.log('dados: ', dados)
 
         axios
-            .delete('http://localhost:3001/excluirFornecedor', dados)
+            .delete('http://localhost:3001/excluirFornecedor', {data: dados})
             .then((response) => {
                 console.log(response.data);
             })
             .catch (err => console.log(err));
+        carregarDados();
     };
 
     return (
     <>
     <Headin icones={icones} pagina='Cadastro Fornecedor'/>
-        <Box sx={{backgroundColor: 'primary.dark', display: 'flex', justifyContent: 'center', height: '85vh'}}>
-                <Container sx={{backgroundColor: 'secondary.light'}}>
-                    <TabelaEditavel
-                        dados={teste}
-                        colunas={columns}
-                        
-                        
-                    />  
-                </Container>
+    {addin ? (
+        <Box sx={{backgroundColor: 'primary.dark', justifyContent: 'center', alignItems:'center', padding:'10px'}}>
+            <Container sx={{justifyContent: 'center', alignItems:'center'}}>
+            <form onSubmit={handleSubmit} >
+                <Grid container spacing={2} sx={{ alignItems:'center', justifyContent: 'center'}}>
+                    <Grid item xs={12} md={3}>
+                        <TextField fullWidth label="Nome da Empresa" margin="dense" variant="filled" sx={{backgroundColor: 'secondary.light' }} value={nome} onChange={(e) => setNome(e.target.value)}/>
+                    </Grid>
+                    <Grid item xs={12} md={2.3}>
+                        <TextField label="CNPJ" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={cnpj} onChange={(e) => setCnpj(e.target.value)}/>
+                    </Grid>
+                    <Grid item xs={12} md={2}>
+                        <TextField label="Contato" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={contato} onChange={(e) => setContato(e.target.value)}/>
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                        <TextField id="outlined-basic" fullWidth label="Complemento" margin="dense" sx={{backgroundColor: 'secondary.light' }} variant="filled" value={tipo} onChange={(e) => setTipo(e.target.value)}/>
+                    </Grid>
+                    <Grid item xs={12} md={2} >
+                        <Button sx={{marginTop:2}} variant="contained" type="submit" >Cadastrar</Button>
+                    </Grid>
+                </Grid>
+            </form>
+            </Container>
         </Box>
-        <form onSubmit={handleSubmit} >
-        <Grid container spacing={2} sx={{flexDirection: 'column', alignItems:'center'}}>
-            <Grid item xs={6} md={6}>
-                <TextField id="outlined-basic" label="Nome da Empresa" variant="outlined" value={nome} onChange={(e) => setNome(e.target.value)}/>
-            </Grid>
-            <Grid item xs={6} md={6}>
-                <TextField id="outlined-basic" label="CNPJ" variant="outlined" value={cnpj} onChange={(e) => setCnpj(e.target.value)}/>
-            </Grid>
-            <Grid item xs={6} md={6}>
-                <TextField id="outlined-basic" label="Contato" variant="outlined" value={contato} onChange={(e) => setContato(e.target.value)}/>
-            </Grid>
-            <Grid item xs={6} md={6}>
-                <TextField id="outlined-basic" label="Complemento" variant="outlined" value={tipo} onChange={(e) => setTipo(e.target.value)}/>
-            </Grid>
-            <Grid item xs={6} md={6}>
-                <Button sx={{marginTop:2}} variant="contained" type="submit">Cadastrar</Button>
-            </Grid>
-        </Grid>
-        </form>
-        
+    ) : null}
+    <Box sx={{display: 'flex', justifyContent: 'center', height: '85vh', marginTop: '10px'}}>
+            <Container sx={{backgroundColor: 'secondary.light'}}>
+                <TabelaEditavel
+                    dados={fornecedores}
+                    colunas={columns}
+                    salvar={handleUpdate}
+                    excluir={handleDelete}
+                    carregar={carregarDados}
+                    getRowId={getRowId}
+                />  
+            </Container>
+    </Box>              
     </>
     );
   }
