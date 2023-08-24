@@ -22,8 +22,8 @@ export default function MenuBox(props) {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}>
-            <MenuItem component={Link} to="/cadastro-cliente">Cadastro Cliente</MenuItem>
-            <MenuItem component={Link} to="/cadastro-fornecedor">Cadastro Fornecedor</MenuItem>
+            <MenuItem component={Link} to="/clientes">Clientes</MenuItem>
+            <MenuItem component={Link} to="/fornecedores">Fornecedores</MenuItem>
             <Divider/>
             <MenuItem onClick={handleClose}>Faturamento</MenuItem>
         </Menu>
