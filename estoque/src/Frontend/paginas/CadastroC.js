@@ -54,7 +54,7 @@ export default function CadastroC() {
     //restorna a lista de Clientes
     useEffect(() => {
         axios
-            .get('http://localhost:3002/listaCliente')
+            .get('http://localhost:3001/listaCliente')
             .then((response) => {
                 if (response.data) {
                     const dados = response.data
@@ -66,7 +66,7 @@ export default function CadastroC() {
             .catch(err => console.log(err));
     }, []);
 
-    // cadastra um novo cliente
+    // Criar cliente
     const handleSubmit = async (event) => {
         const dados = {
             cpf: cpf,
@@ -77,13 +77,29 @@ export default function CadastroC() {
             console.log('dados: ', dados)
 
         axios
-            .post('http://localhost:3002/cliente', dados)
+            .post('http://localhost:3001/cliente', dados)
             .then((response) => {
                 console.log(response.data);
             })
             .catch (err => console.log(err));
     };
 
+    // Editar cliente
+    const handleUpdate = async (event) => {
+        const dados = {
+            id:id}
+        
+            console.log('dados: ', dados)
+
+        axios
+            .put('http://localhost:3001/editarCliente', dados)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch (err => console.log(err));
+    };
+
+    // Excluir cliente
     const handleDelete = async (event) => {
         const dados = {
             id:id}
@@ -98,11 +114,6 @@ export default function CadastroC() {
             .catch (err => console.log(err));
     };
 
-    const handleEdit = async (event) => {
-
-    }
-
-    
 
 
     return (
@@ -110,6 +121,7 @@ export default function CadastroC() {
             <Headin icones={icones} pagina='Clientes'/>
                 <Box sx={{backgroundColor: 'primary.dark', display: 'flex', justifyContent: 'center', height: '85vh'}}>
                         <Container sx={{backgroundColor: 'secondary.light'}}>
+                            
                             <TabelaEditavel
                                 dados={teste}
                                 colunas={columns}
@@ -125,28 +137,30 @@ export default function CadastroC() {
                                     }));
                                 }}
                             />  
+                            <form onSubmit={handleSubmit} >
+                            <Grid container spacing={2} sx={{flexDirection: 'column', alignItems:'center'}}>
+                                <Grid item xs={6} md={6}>
+                                    <TextField id="outlined-basic" label="Nome Completo" variant="outlined" value={nome} onChange={(e) => setNome(e.target.value)}/>
+                                </Grid>
+                                <Grid item xs={6} md={6}>
+                                    <TextField id="outlined-basic" label="CPF" variant="outlined" value={cpf} onChange={(e) => setCpf(e.target.value)}/>
+                                </Grid>
+                                <Grid item xs={6} md={6}>
+                                    <TextField id="outlined-basic" label="Contato" variant="outlined" value={contato} onChange={(e) => setContato(e.target.value)}/>
+                                </Grid>
+                                <Grid item xs={6} md={6}>
+                                    <TextField id="outlined-basic" label="Detalhes" variant="outlined" value={detalhes} onChange={(e) => setDetalhes(e.target.value)}/>
+                                </Grid>
+                                <Grid item xs={6} md={6}>
+                                    <Button sx={{marginTop:2}} variant="contained" type="submit">Cadastrar</Button>
+                                </Grid>
+                            </Grid>
+                            </form>
                         </Container>
+                        
                 </Box>
 
-                <form onSubmit={handleSubmit} >
-        <Grid container spacing={2} sx={{flexDirection: 'column', alignItems:'center'}}>
-            <Grid item xs={6} md={6}>
-                <TextField id="outlined-basic" label="Nome Completo" variant="outlined" value={nome} onChange={(e) => setNome(e.target.value)}/>
-            </Grid>
-            <Grid item xs={6} md={6}>
-                <TextField id="outlined-basic" label="CPF" variant="outlined" value={cpf} onChange={(e) => setCpf(e.target.value)}/>
-            </Grid>
-            <Grid item xs={6} md={6}>
-                <TextField id="outlined-basic" label="Contato" variant="outlined" value={contato} onChange={(e) => setContato(e.target.value)}/>
-            </Grid>
-            <Grid item xs={6} md={6}>
-                <TextField id="outlined-basic" label="Detalhes" variant="outlined" value={detalhes} onChange={(e) => setDetalhes(e.target.value)}/>
-            </Grid>
-            <Grid item xs={6} md={6}>
-                <Button sx={{marginTop:2}} variant="contained" type="submit">Cadastrar</Button>
-            </Grid>
-        </Grid>
-        </form>
+
                 
         </>
 
