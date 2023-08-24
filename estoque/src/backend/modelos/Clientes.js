@@ -1,18 +1,7 @@
 const db = require('../dbConfig');
 
 const Clientes = {
-    pesquisar: async (req, res) => {
-        try {
-          const pesquisa = 'SELECT * from cliente';
-          const resultados = await db.query(pesquisa);
-          const fornecedor = resultados.rows;
-      
-          res.json(fornecedor);      
-        }
-        catch (ex) {
-          console.log("Erro: ", ex)
-        }
-      },
+
     cadastrar: async (req, res) => {
         console.log('req: ',req)
         try {
@@ -25,7 +14,32 @@ const Clientes = {
           console.log("Erro: ", ex);
           throw ex;
         }
+      },  
+    pesquisar: async (req, res) => {
+        try {
+          const pesquisa = 'SELECT * from cliente';
+          const resultados = await db.query(pesquisa);
+          const fornecedor = resultados.rows;
+      
+          res.json(fornecedor);      
+        }
+        catch (ex) {
+          console.log("Erro: ", ex)
+        }
       },
+    editar: async (req, res) => {
+      try {
+        const {cpf, nome, contato, detalhes, id} = req.body;
+        const query =  'UPDATE cliente SET cpf = $1, nome = $2, contato = $3, detalhes = $4 WHERE id = $5';
+        const values = [cpf, nome, contato, detalhes, id];
+        await db.query(query, values);
+    
+        res.status(404).send('Cliente atualizado com sucesso.');
+      } catch (ex) {
+        console.log('Erro: ' + ex);
+        res.status(500).send('Erro ao atualizar o cliente.');
+      }
+    },
     excluir: async (req, res) => {
         try {
           const { id } = req.body;

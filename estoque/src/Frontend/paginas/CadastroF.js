@@ -34,19 +34,38 @@ function CadastroFornecedor() {
 
     //envio para cadastro
     const handleSubmit = async (event) => {
-      axios
-        .post('http://localhost:3001/fornecedor', { 
-          id:id
-        })
-        .then((response) =>{    
-          if(response) {
-            console.log('entrou ') 
-          }
-               
-        })
-        .catch(err => console.log(err));}
+        const dados = {
+            cnpj: cnpj,
+            nome: nome,
+            tipo: tipo,
+            contato: contato}
         
-    // deletar
+            console.log('dados: ', dados)
+
+        axios
+            .post('http://localhost:3001/fornecedor', dados)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch (err => console.log(err));
+    };
+        
+    // Editar fornecedor
+    const handleUpdate = async (event) => {
+        const dados = {
+            id:id}
+        
+            console.log('dados: ', dados)
+
+        axios
+            .put('http://localhost:3001/editarFornecedor', dados)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch (err => console.log(err));
+    };
+
+    // Excluir fornecedor
     const handleDelete = async (event) => {
         const dados = {
             id:id}
