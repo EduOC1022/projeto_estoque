@@ -4,6 +4,8 @@ const router = express.Router();
 const Fornecedores = require('./modelos/Fornecedores');
 const Clientes = require('./modelos/Clientes');
 const Pecas = require('./modelos/Pacas');
+const Compras = require('./modelos/Compra');
+const Vendas = require('./modelos/Vendas');
 
 // Clientes
 router.post('/cliente', (req, res) => {
@@ -54,8 +56,22 @@ router.put('/editarPeca', (req, res) => {
     Pecas.editar(req, res);
 });
 
-router.delete('/excluirPeca', (req, res) => {
-    Pecas.excluir(req, res);
+// Compras
+router.post('/compra', (req, res) => {
+  Compras.cadastrar(req, res);
+});
+
+router.get('/listaCompra', (req, res) => {
+  Compras.pesquisar(req, res);
+});
+
+// Vendas
+router.post('/venda', (req, res) => {
+  Vendas.cadastrar(req, res);
+});
+
+router.get('/listaVenda', (req, res) => {
+  Vendas.pesquisar(req, res);
 });
 
 module.exports = router;
