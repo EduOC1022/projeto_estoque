@@ -14,10 +14,12 @@ router.get('/listaCliente', (req, res) => {
 
 router.put('/editarCliente/:id', (req, res) => {
     Clientes.editar(req, res);
+    console.log('editar', req)
 });
 
 router.delete('/excluirCliente', (req, res) => {
     Clientes.excluir(req, res);
+    console.log('excluir', req)
   });
 
 router.post('/fornecedor', (req, res) => {
