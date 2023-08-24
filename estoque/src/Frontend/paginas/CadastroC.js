@@ -46,8 +46,7 @@ export default function CadastroC() {
         ];
 
 
-    const getRowId = (teste) => teste.id;
-    const [editedRows, setEditedRows] = useState({});
+    const getRowId = (clientes) => clientes.id;
     
     //restorna a lista de Clientes
     useEffect(() => {
@@ -83,9 +82,14 @@ export default function CadastroC() {
     };
 
     // Editar cliente
-    const handleUpdate = async (event) => {
+    const handleUpdate = async (data) => {
         const dados = {
-            id:id}
+            id:data.id,
+            cpf: data.cpf,
+            nome: data.nome,
+            contato: data.contato,
+            detalhes: data.detalhes
+        }
         
             console.log('dados: ', dados)
 
@@ -98,11 +102,9 @@ export default function CadastroC() {
     };
 
     // Excluir cliente
-    const handleDelete = async (event) => {
-        const dados = {
-            id:id}
-        
-            console.log('dados: ', id)
+    const handleDelete = async (data) => {
+        const dados = {id: data}
+            console.log('dados: ', dados)
 
         axios
             .delete('http://localhost:3001/excluirCliente', dados)
@@ -121,11 +123,11 @@ export default function CadastroC() {
                         <Container sx={{backgroundColor: 'secondary.light'}}>
                             
                             <TabelaEditavel
-                                dados={teste}
+                                dados={clientes}
                                 colunas={columns}
-                                salvar={handleSubmit}
+                                salvar={handleUpdate}
                                 excluir={handleDelete}
-                                
+                                getRowId={getRowId}
                             />  
                             <form onSubmit={handleSubmit} >
                             <Grid container spacing={2} sx={{flexDirection: 'column', alignItems:'center'}}>

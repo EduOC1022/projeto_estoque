@@ -41,6 +41,7 @@ const Clientes = {
       }
     },
     excluir: async (req, res) => {
+      console.log('teste', req)
         try {
           const { id } = req.body;
           const query = 'DELETE FROM cliente WHERE id = $1';
