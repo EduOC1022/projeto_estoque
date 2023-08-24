@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
 import { DataGrid, GridRowModes,
     GridToolbarContainer,
     GridActionsCellItem,
@@ -18,12 +18,8 @@ export default function TabelaEditavel (props) {
     const [isInEditMode, setIsInEditMode] = useState(false)
     const [editableRows, setEditableRows] = useState(new Set());
     const [edicaoDados, setEdicaoDados] = useState({});
+    const [originalData, setOriginalData] = useState({}); // Armazenar os dados originais
 
-    /* const handleCancelClick = (id) => () => {
-        setRowModesModel({
-          ...rowModesModel,
-          [id]: { mode: GridRowModes.View, ignoreModifications: true },
-        });} */
 
     const columns = [...colunas,  
         {field: 'actions', headerName: 'Ações', width: 100,
@@ -39,7 +35,11 @@ export default function TabelaEditavel (props) {
                     sx={{
                         color: 'primary.main',
                     }}
-                    onClick={() => salvar(params.row)}
+                    onClick={() => 
+                        {salvar(params.row);
+                        setIsInEditMode(false);
+                        setEditableRows(new Set());
+                    }}
                     />
                     <GridActionsCellItem
                     icon={<CancelIcon />}
@@ -50,7 +50,7 @@ export default function TabelaEditavel (props) {
                     onClick={() => {
                         setIsInEditMode(false);
                         setEditableRows(new Set());
-                        setEdicaoDados({});
+                        handleCancel(originalData);
                     }}
                     />
                 </>
@@ -59,10 +59,10 @@ export default function TabelaEditavel (props) {
                 return (
                 <>
                     <GridActionsCellItem
-                    icon={<EditIcon />}
+                    icon={<CheckIcon />}
                     label="Edit"
                     onClick={() => {
-                        setIsInEditMode(true);
+                        //setIsInEditMode(true);
                         setEditableRows(new Set([params.row.id]));
                       }}
                     />
@@ -78,21 +78,26 @@ export default function TabelaEditavel (props) {
         },
     ];
 
-    const onRowClick = (rowParams) => {
-        if (editableRows.has(rowParams.id)) {
-          return {
-            onClick: () => {},
-            
-          };
-        }
-        return null;
-      };
+  const handleEdit = (row) => {
+    setIsInEditMode(true);
+    setOriginalData(row); // Salvar os dados originais
+  };
+ 
 
-    
+    // Função para cancelar a edição da linha
+  const handleCancel = (row) => {
+    // Restaurar os valores originais
+    const updatedData = { ...row, ...originalData };
+    // Atualizar a linha com os valores originais
+    // Aqui você deve implementar a lógica para atualizar o estado de dados
+  };
 
     return (
         <Box>
-            <DataGrid rows={dados} columns={columns}  onRowClick={onRowClick} editRowsModel={edicaoDados}/>
+            <DataGrid rows={dados} columns={columns} onRowClick={(params) => {
+          if (!isInEditMode) {
+            handleEdit(params.row);
+          } }} editRowsModel={edicaoDados}/>
         </Box>
     )
 }

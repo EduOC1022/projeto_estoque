@@ -48,13 +48,11 @@ export default function CadastroC() {
 
     const getRowId = (teste) => teste.id;
     const [editedRows, setEditedRows] = useState({});
-    const handleTeste = () => {
-        console.log('deu certo')
-    }
+    
     //restorna a lista de Clientes
     useEffect(() => {
         axios
-            .get('http://localhost:3002/listaCliente')
+            .get('http://localhost:3001/listaCliente')
             .then((response) => {
                 if (response.data) {
                     const dados = response.data
@@ -67,28 +65,29 @@ export default function CadastroC() {
     }, []);
 
     // cadastra um novo cliente
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (data) => {
         const dados = {
-            cpf: cpf,
-            nome: nome,
-            contato: contato,
-            detalhes: detalhes}
+            cpf: data.cpf,
+            nome: data.nome,
+            contato: data.contato,
+            detalhes: data.detalhes}
         
             console.log('dados: ', dados)
 
         axios
-            .post('http://localhost:3002/cliente', dados)
+            .post('http://localhost:3001/cliente', dados)
             .then((response) => {
                 console.log(response.data);
             })
             .catch (err => console.log(err));
     };
 
-    const handleDelete = async (event) => {
+    //deletar
+    const handleDelete = async (id) => {
         const dados = {
             id:id}
         
-            console.log('dados: ', dados)
+            console.log('dados: ', id)
 
         axios
             .delete('http://localhost:3001/excluirCliente', dados)
@@ -113,17 +112,9 @@ export default function CadastroC() {
                             <TabelaEditavel
                                 dados={teste}
                                 colunas={columns}
-                                editRowsModel={editedRows}
-                                onEditCellChange={(params, event) => {
-                                    const { id, field, value } = event;
-                                    setEditedRows((prevEditedRows) => ({
-                                    ...prevEditedRows,
-                                    [id]: {
-                                        ...prevEditedRows[id],
-                                        [field]: value,
-                                    },
-                                    }));
-                                }}
+                                salvar={handleSubmit}
+                                excluir={handleDelete}
+                                
                             />  
                         </Container>
                 </Box>

@@ -4,28 +4,35 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
 import axios from'axios';
-import {TextField, Grid, Button} from '@mui/material/';
+import TabelaEditavel from "../componentes/Tabela";
+import {Box, Container, TextField, Grid, Button} from '@mui/material/';
 
 function CadastroFornecedor() {
 
     const icones =[{
         nome: 'Adicionar',
-        icone: <AddIcon fontSize="large"/>},
-    {
-        nome: 'Filtrar',
-        icone: <FilterAltIcon fontSize="large"/>},
-    {
-        nome: 'Selecionar',
-        icone: <LibraryAddCheckIcon fontSize="large"/>
-    }
-    ]
+        icone: <AddIcon fontSize="large"/>}];
 
     const [id, setId] = useState('');
     const [cnpj, setCnpj] = useState('');
     const [nome, setNome] = useState('');
     const [tipo, setTipo] = useState('');
     const [contato, setContato] = useState('');
-  
+
+    const teste = [
+        {nome: "Ana", cnpj: "123", contato: "123", tipo: 'ok', id: 1},
+        {nome: "Ana", cnpj: "222", contato: "123", tipo: 'ok',id: 2},
+        {nome: "Ana", cnpj: "333", contato: "123", tipo: 'ok',id: 3}
+    ]
+
+    const columns = [
+        { field: 'nome', headerName: 'Nome', width: 300, editable: true },
+        { field: 'cnpj', headerName: 'CNPJ', width: 200, editable: true} ,
+        { field: 'contato', headerName: 'Contato', width: 200, editable: true},
+        { field: 'tipo', headerName: 'Tipo', width: 200, editable: true}
+    ];
+
+    //envio para cadastro
     const handleSubmit = async (event) => {
       axios
         .post('http://localhost:3001/fornecedor', { 
@@ -39,24 +46,34 @@ function CadastroFornecedor() {
         })
         .catch(err => console.log(err));}
         
+    // deletar
+    const handleDelete = async (event) => {
+        const dados = {
+            id:id}
+        
+            console.log('dados: ', dados)
 
-        const handleDelete = async (event) => {
-            const dados = {
-                id:id}
-            
-                console.log('dados: ', dados)
-    
-            axios
-                .delete('http://localhost:3001/excluirFornecedor', dados)
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch (err => console.log(err));
-        };
+        axios
+            .delete('http://localhost:3001/excluirFornecedor', dados)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch (err => console.log(err));
+    };
 
     return (
     <>
     <Headin icones={icones} pagina='Cadastro Fornecedor'/>
+        <Box sx={{backgroundColor: 'primary.dark', display: 'flex', justifyContent: 'center', height: '85vh'}}>
+                <Container sx={{backgroundColor: 'secondary.light'}}>
+                    <TabelaEditavel
+                        dados={teste}
+                        colunas={columns}
+                        
+                        
+                    />  
+                </Container>
+        </Box>
         <form onSubmit={handleSubmit} >
         <Grid container spacing={2} sx={{flexDirection: 'column', alignItems:'center'}}>
             <Grid item xs={6} md={6}>

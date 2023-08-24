@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const db = require('./dbConfig');
-const porta = 3002;
+const porta = 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
