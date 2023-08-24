@@ -18,7 +18,7 @@ import {Container, Box, Button, Grid, TextField, Typography } from "@mui/materia
 export default function CadastroC() {
     const icones =[{
                     nome: 'Adicionar',
-                    icone: <AddIcon fontSize="large"/>}
+                    icone: <AddIcon fontSize="large" onClick= {() => setAddin(!addin)}/>}
                 ];
     
     const [id, setId] = useState('');
@@ -28,20 +28,14 @@ export default function CadastroC() {
     const [detalhes, setDetalhes] = useState('');
     const [clientes, setClientes] = useState([]);
 
-    const [editvel, setEditvel] = useState(true);
-
-    const teste = [
-        {nome: "Ana", cpf: "123", contato: "123", detalhes: 'ok', id: 1},
-        {nome: "Ana", cpf: "222", contato: "123", detalhes: 'ok',id: 2},
-        {nome: "Ana", cpf: "333", contato: "123", detalhes: 'ok',id: 3}
-    ]
+    const [addin, setAddin] = useState(false)
     
     //colunas das tabelas
     const columns = [
-        { field: 'nome', headerName: 'Nome', width: 300, editable: editvel },
-        { field: 'cpf', headerName: 'CPF', width: 200, editable: editvel} ,
-        { field: 'contato', headerName: 'Contato', width: 200, editable: editvel },
-        { field: 'detalhes', headerName: 'Detalhes', width: 200, editable: editvel}
+        { field: 'nome', headerName: 'Nome', width: 300, editable: true },
+        { field: 'cpf', headerName: 'CPF', width: 200, editable: true} ,
+        { field: 'contato', headerName: 'Contato', width: 200, editable: true},
+        { field: 'detalhes', headerName: 'Detalhes', width: 200, editable: true}
         
         ];
 
@@ -119,42 +113,44 @@ export default function CadastroC() {
     return (
         <>
             <Headin icones={icones} pagina='Clientes'/>
-                <Box sx={{backgroundColor: 'primary.dark', display: 'flex', justifyContent: 'center', height: '85vh'}}>
-                        <Container sx={{backgroundColor: 'secondary.light'}}>
-                            
-                            <TabelaEditavel
-                                dados={clientes}
-                                colunas={columns}
-                                salvar={handleUpdate}
-                                excluir={handleDelete}
-                                getRowId={getRowId}
-                            />  
-                            <form onSubmit={handleSubmit} >
-                            <Grid container spacing={2} sx={{flexDirection: 'column', alignItems:'center'}}>
-                                <Grid item xs={6} md={6}>
-                                    <TextField id="outlined-basic" label="Nome Completo" variant="outlined" value={nome} onChange={(e) => setNome(e.target.value)}/>
-                                </Grid>
-                                <Grid item xs={6} md={6}>
-                                    <TextField id="outlined-basic" label="CPF" variant="outlined" value={cpf} onChange={(e) => setCpf(e.target.value)}/>
-                                </Grid>
-                                <Grid item xs={6} md={6}>
-                                    <TextField id="outlined-basic" label="Contato" variant="outlined" value={contato} onChange={(e) => setContato(e.target.value)}/>
-                                </Grid>
-                                <Grid item xs={6} md={6}>
-                                    <TextField id="outlined-basic" label="Detalhes" variant="outlined" value={detalhes} onChange={(e) => setDetalhes(e.target.value)}/>
-                                </Grid>
-                                <Grid item xs={6} md={6}>
-                                    <Button sx={{marginTop:2}} variant="contained" type="submit">Cadastrar</Button>
-                                </Grid>
+            {addin ? (
+                <Box sx={{backgroundColor: 'primary.dark', justifyContent: 'center', alignItems:'center', padding:'10px'}}>
+                    <Container sx={{justifyContent: 'center', alignItems:'center'}}>
+                    <form onSubmit={handleSubmit} >
+                        <Grid container spacing={2} sx={{ alignItems:'center', justifyContent: 'center'}}>
+                            <Grid item xs={12} md={3}>
+                                <TextField fullWidth label="Nome Completo" margin="dense" variant="filled" sx={{backgroundColor: 'secondary.light' }} value={nome} onChange={(e) => setNome(e.target.value)}/>
                             </Grid>
-                            </form>
-                        </Container>
-                        
+                            <Grid item xs={12} md={2.3}>
+                                <TextField label="CPF" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={cpf} onChange={(e) => setCpf(e.target.value)}/>
+                            </Grid>
+                            <Grid item xs={12} md={2}>
+                                <TextField label="Contato" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={contato} onChange={(e) => setContato(e.target.value)}/>
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <TextField id="outlined-basic" fullWidth label="Detalhes" margin="dense" sx={{backgroundColor: 'secondary.light' }} variant="filled" value={detalhes} onChange={(e) => setDetalhes(e.target.value)}/>
+                            </Grid>
+                            <Grid item xs={12} md={2} >
+                                <Button sx={{marginTop:2}} variant="contained" type="submit" >Cadastrar</Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+                    </Container>
                 </Box>
-
-
+            ) : null}
+            <Box sx={{backgroundColor: 'primary.dark', display: 'flex', justifyContent: 'center', height: '85vh'}}>
+                <Container sx={{backgroundColor: 'secondary.light'}}>
+                    
+                    <TabelaEditavel
+                        dados={clientes}
+                        colunas={columns}
+                        salvar={handleUpdate}
+                        excluir={handleDelete}
+                        getRowId={getRowId}
+                    />  
+                </Container>
                 
+            </Box>                
         </>
-
     );
 }

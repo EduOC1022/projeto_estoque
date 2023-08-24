@@ -19,7 +19,6 @@ const Fornecedores = {
           const result = await db.query(query);
     
           const fornecedores = result.rows;
-          console.log('teste', fornecedores);
     
           res.json(fornecedores);
         } catch (ex) {
@@ -42,7 +41,12 @@ const Fornecedores = {
   },
       excluir: async (req, res) => {
         try {
-          const { id } = req.body;
+          const  { id } = req.body;
+
+          if (!id) {
+            return res.status(400).send('ID do fornecedor não fornecido');
+          }
+          console.log('exluir teste', id)
           const query = 'DELETE FROM fornecedor WHERE id = $1';
           await db.query(query, [id]);
       

@@ -4,6 +4,8 @@ const router = express.Router();
 const Fornecedores = require('./modelos/Fornecedores');
 const Clientes = require('./modelos/Clientes')
 
+
+//clientes
 router.post('/cliente', (req, res) => {
     Clientes.cadastrar(req, res);
   });
@@ -22,6 +24,8 @@ router.delete('/excluirCliente', (req, res) => {
     console.log('excluir', req)
   });
 
+
+  //fornecedores
 router.post('/fornecedor', (req, res) => {
     Fornecedores.cadastrar(req, res);
   });

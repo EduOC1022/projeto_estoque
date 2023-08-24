@@ -12,7 +12,7 @@ import {Container, Box, Button, Grid, TextField, Typography} from "@mui/material
 
 
 export default function TabelaEditavel (props) {
-    const { colunas, dados, salvar, excluir} = props
+    const { colunas, dados, salvar, excluir, carregar} = props
     /* const [editedRows, setEditedRows] = useState({});
     const [editable, setEditable] = useState(false) */
     const [isInEditMode, setIsInEditMode] = useState(false)
@@ -51,6 +51,7 @@ export default function TabelaEditavel (props) {
                         setIsInEditMode(false);
                         setEditableRows(new Set());
                         handleCancel(originalData);
+                        props.carregar();
                     }}
                     />
                 </>
