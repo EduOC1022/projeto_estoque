@@ -12,7 +12,7 @@ router.get('/listaCliente', (req, res) => {
     Clientes.pesquisar(req, res);
   });
 
-router.put('/editarCliente', (req, res) => {
+router.put('/editarCliente/:id', (req, res) => {
     Clientes.editar(req, res);
 });
 

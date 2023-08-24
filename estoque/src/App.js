@@ -7,8 +7,8 @@ import Historico from "./Frontend/paginas/Historico";
 import Venda from "./Frontend/paginas/Venda";
 import Compra from "./Frontend/paginas/Compra";
 import './App.css'
-import CadastroFornecedor from "./Frontend/paginas/CadastroF";
-import CadastroCliente from "./Frontend/paginas/CadastroC";
+import Fornecedores from "./Frontend/paginas/Fornecedores";
+import Clientes from "./Frontend/paginas/Clientes";
 
 
 
@@ -21,8 +21,8 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Home/>}/>
         <Route path="/estoque" element={<Estoque/>}/>
-        <Route path="/cadastro-fornecedor" element={<CadastroFornecedor/>}/>
-        <Route path="/cadastro-cliente" element={<CadastroCliente/>}/>
+        <Route path="/fornecedores" element={<Fornecedores/>}/>
+        <Route path="/clientes" element={<Clientes/>}/>
         <Route path="/historico" element={<Historico/>}/>
         <Route path="/venda" element={<Venda/>}/>
         <Route path="/compra" element={<Compra/>}/>
