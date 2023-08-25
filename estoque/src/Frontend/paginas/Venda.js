@@ -14,7 +14,23 @@ export default function Venda() {
                     nome: 'Filtrar',
                     icone: <FilterAltIcon fontSize="large"/>}
                 ]
+    const handleSubmit = async (data) => {
+        const dados = {
+            idPeca: data.idPeca,
+            idCliente: data.idCliente,
+            qtd: data.qtd,
+            valorU: data.valorU,
+            valorTotal: data.valorTotal}
+        
+            console.log('dados: ', dados)
 
+        axios
+            .post('http://localhost:3001/compra', dados)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch (err => console.log(err));
+    };
     return (
         <Headin icones={icones} pagina='Venda'/>
     );
