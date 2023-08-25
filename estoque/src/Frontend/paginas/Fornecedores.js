@@ -76,7 +76,7 @@ function CadastroFornecedor() {
                 console.log(response.data);
             })
             .catch (err => console.log(err));
-        await carregarDados();
+        carregarDados();
     };
         
     // Editar fornecedor
@@ -116,7 +116,7 @@ function CadastroFornecedor() {
 
     return (
     <>
-    <Headin icones={icones} pagina='Cadastro Fornecedor'/>
+    <Headin icones={icones} pagina='Fornecedores'/>
     {addin ? (
         <Box sx={{backgroundColor: 'primary.dark', justifyContent: 'center', alignItems:'center', padding:'10px'}}>
             <Container sx={{justifyContent: 'center', alignItems:'center'}}>

@@ -54,8 +54,4 @@ router.put('/editarPeca', (req, res) => {
     Pecas.editar(req, res);
 });
 
-router.delete('/excluirPeca', (req, res) => {
-    Pecas.excluir(req, res);
-});
-
 module.exports = router;
