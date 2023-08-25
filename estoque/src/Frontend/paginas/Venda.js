@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import Tittle from "../componentes/Typographies/Tittle";
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
@@ -21,11 +22,10 @@ export default function Venda() {
             qtd: data.qtd,
             valorU: data.valorU,
             valorTotal: data.valorTotal}
-        
             console.log('dados: ', dados)
 
         axios
-            .post('http://localhost:3001/compra', dados)
+            .post('http://localhost:3001/venda', dados)
             .then((response) => {
                 console.log(response.data);
             })
