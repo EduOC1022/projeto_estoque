@@ -3,7 +3,7 @@ import TabelaEditavel from "../componentes/Tabela";
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
 import axios from'axios';
-import {Container, Box, Button, Grid, TextField, Typography } from "@mui/material";
+import {Container, Box, Button, Grid, TextField} from "@mui/material";
 
 export default function CadastroC() {
     const icones =[{
@@ -118,7 +118,9 @@ export default function CadastroC() {
     return (
         <>
             <Headin icones={icones} pagina='Clientes'/>
+
             <Box sx={{backgroundColor: 'primary.dark', justifyContent: 'center', height: '92vh', padding: '20px'}}>  
+            
             {addin ? (
                 <Box sx={{margin: '10px'}}>
                <Container sx={{justifyContent: 'center', borderRadius: '5px', alignItems:'center', backgroundColor: 'secondary.light'}}>
@@ -144,10 +146,9 @@ export default function CadastroC() {
                 </Container>
                 </Box>
             ) : null}
+
                 <Container sx={{backgroundColor: 'secondary.light', height: '75vh', padding: '20px', borderRadius: '5px'}}>
-                    
-                    <TabelaEditavel
-                
+                    <TabelaEditavel                
                         dados={clientes}
                         colunas={columns}
                         salvar={handleUpdate}

@@ -3,7 +3,7 @@ import TabelaEditavel from "../componentes/Tabela";
 import axios from "axios";
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Container, TextField } from "@mui/material";
+import { Box, Button, Container, Grid, TextField} from "@mui/material";
 
 
 export default function Estoque() {
@@ -11,19 +11,26 @@ export default function Estoque() {
                     nome: 'Adicionar',
                     icone: <AddIcon fontSize="large" onClick= {() => setAddin(!addin)}/>}];
 
-    const [peca, setPeca] = useState([]);    
+    const [pecas, setPecas] = useState([]);    
+    const [nome, setNome] = useState('');
+    const [grupo, setGrupo] = useState('');
+    const [quantidade, setQuantidade] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [valorP, setValorP] = useState('');
+    const [valorT, setValorT] = useState('');
     const [addin, setAddin] = useState(false);
     
     //colunas das tabelas
     const columns = [
-        { field: 'nome', headerName: 'Nome', width: 300, editable: true },
-        { field: 'grupo', headerName: 'Grupo', width: 200, editable: true} ,
-        { field: 'quantidade', headerName: 'Qtd', width: 200, editable: false },
+        { field: 'nome', headerName: 'Nome', width: 200, editable: true },
+        { field: 'grupo', headerName: 'Grupo', width: 150, editable: true} ,
+        { field: 'quantidade', headerName: 'Qtd', width: 100, editable: false },
         { field: 'descricao', headerName: 'Descrição', width: 200, editable: true},
-        { field: 'valorP', headerName: 'Valor Compra', width: 200, editable: false}
+        { field: 'valorP', headerName: 'Valor Compra', width: 200, editable: false},
+        { field: 'valorV', headerName: 'Valor Venda', width: 200, editable: false}
         ];
 
-    const getRowId = (pecas) => peca.id;
+    const getRowId = (pecas) => pecas.id;
 
     //restorna a lista de Peças
     useEffect(() => {
@@ -31,8 +38,14 @@ export default function Estoque() {
             .get('http://localhost:3001/listaPeca')
             .then((response) => {
                 if (response.data) {
-                    const dados = response.data
-                    setPeca(dados)
+                    const dados = response.data.map((peca) => ({
+                        ...peca,
+                        valorV: (peca.valorP * 1.15)
+                    }))
+                    /* dados.forEach((peca) => {
+                        peca.valorP 
+                    }) */
+                    setPecas(dados)
                 }
             })
             .catch(err => console.log(err));
@@ -45,7 +58,7 @@ export default function Estoque() {
         axios
         .get('http://localhost:3001/listaPeca')
         .then((response) => {
-            setPeca(response.data);
+            setPecas(response.data);
         })
         } catch (error) {
         console.error(error);
@@ -73,7 +86,7 @@ export default function Estoque() {
         carregarDados();
     };
 
-    // Editar cliente
+    // Editar peça
     const handleUpdate = async (data) => {
         const dados = {
             id:data.id,
@@ -96,31 +109,42 @@ export default function Estoque() {
             carregarDados();
     };
 
-    // Excluir cliente
-    const handleDelete = async (data) => {
-        const dados = {id: data}
-            console.log('dados: ', dados)
-
-        axios
-            .delete('http://localhost:3001/excluirCliente', dados)
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch (err => console.log(err));
-        carregarDados();
-    };
-
-
     return (
         <>
         <Headin icones={icones} pagina='Estoque'/>
-        <Box sx={{backgroundColor: 'primary.dark'}}>            
-            <Container disableGutters={true} sx={{backgroundColor: 'secondary.light'}} >
+        <Box sx={{backgroundColor: 'primary.dark', justifyContent: 'center', height: '92vh', padding: '20px'}}>  
+            {addin ? (
+                <Box sx={{margin: '10px'}}>
+               <Container sx={{justifyContent: 'center', borderRadius: '5px', alignItems:'center', backgroundColor: 'secondary.light'}}>
+                    <form onSubmit={handleSubmit} >
+                        <Grid container spacing={2} sx={{ alignItems:'center', justifyContent: 'center'}}>
+                            <Grid item xs={12} md={3}>
+                                <TextField fullWidth label="Peça" margin="dense" variant="filled" sx={{backgroundColor: 'secondary.light' }} value={nome} onChange={(e) => setNome(e.target.value)}/>
+                            </Grid>
+                            <Grid item xs={12} md={2.3}>
+                                <TextField label="CPF" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} /* value={cpf} onChange={} *//>
+                            </Grid>
+                            <Grid item xs={12} md={2}>
+                                <TextField label="Contato" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} /* value={contato} onChange={} *//>
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <TextField id="outlined-basic" fullWidth label="Detalhes" margin="dense" sx={{backgroundColor: 'secondary.light' }} variant="filled" /* value={detalhes} onChange={(e) => setDetalhes(e.target.value)} *//>
+                            </Grid>
+                            <Grid item xs={12} md={2} >
+                                <Button sx={{margin:2}} variant="contained" type="submit" >Cadastrar</Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </Container>
+                </Box>
+            ) : null}
+            <Container disableGutters={true} sx={{backgroundColor: 'secondary.light', height: '75vh', padding: '20px', borderRadius: '5px'}} >
                 <TabelaEditavel
-                            dados={peca}
-                            colunas={columns}
-                            
-                            getRowId={getRowId}/>
+                    dados={pecas}
+                    colunas={columns}
+                    
+                    getRowId={getRowId}
+                    />
             </Container>
         </Box>
         </>
