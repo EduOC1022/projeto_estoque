@@ -16,10 +16,7 @@ const Compras = {
       },  
     pesquisar: async (req, res) => {
         try {
-          const pesquisa = `SELECT fornecedor.nome AS nomeForn, peca.nome AS nomePeca, data, qtdCompra, valorU, valorTotal 
-                            From ((compra 
-                            INNER JOIN peca ON compra.idPeca = peca.id)
-                            INNER JOIN fornecedor ON compra.idForn = fornecedor.id) WHERE `;
+          const pesquisa = 'SELECT fornecedor.nome AS nomeForn, peca.nome AS nomePeca, data, qtdCompra, valorU, valorTotal From compra INNER JOIN peca ON compra.idPeca = peca.id INNER JOIN fornecedor ON compra.idForn = fornecedor.id'
           const resultados = await db.query(pesquisa);
           const compra = resultados.rows;
 
