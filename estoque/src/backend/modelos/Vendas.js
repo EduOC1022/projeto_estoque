@@ -16,7 +16,7 @@ const Vendas = {
       },  
     pesquisar: async (req, res) => {
         try {
-          const pesquisa = 'SELECT * from venda';
+          const pesquisa = 'SELECT * FROM venda INNER JOIN peca ON venda.idpeca = peca.id INNER JOIN cliente ON venda.idcliente = cliente.id';
           const resultados = await db.query(pesquisa);
           const venda = resultados.rows;
       
