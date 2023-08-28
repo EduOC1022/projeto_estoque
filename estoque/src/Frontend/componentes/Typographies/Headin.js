@@ -8,7 +8,7 @@ export default function Headin(props) {
 
     return (
         <Box sx={{backgroundColor: 'secondary.main', padding: 2, display: 'flex', alignItems: 'center'}}>
-            <Tittle sx={{marginLeft: 30, flexGrow: 1}} >{pagina}</Tittle>
+            <Tittle sx={{marginLeft: '24vh', flexGrow: 1}} >{pagina}</Tittle>
             {
                 icones.map(icon => (
                     <IconeButton titulo={icon.nome} icone={icon.icone}/>

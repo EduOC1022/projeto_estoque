@@ -48,7 +48,6 @@ export default function TabelaEditavel (props) {
                     onClick={() => {
                         setIsInEditMode(false);
                         setEditableRows(new Set());
-                        handleCancel(originalData);
                         props.carregar();
                     }}
                     />
@@ -82,21 +81,12 @@ export default function TabelaEditavel (props) {
     setOriginalData(row); // Salvar os dados originais
   };
  
-
-    // Função para cancelar a edição da linha
-  const handleCancel = (row) => {
-    // Restaurar os valores originais
-    const updatedData = { ...row, ...originalData };
-    // Atualizar a linha com os valores originais
-    // Aqui você deve implementar a lógica para atualizar o estado de dados
-  };
-
-    return (
-        <Box>
-            <DataGrid rows={dados} columns={columns} onRowClick={(params) => {
-          if (!isInEditMode) {
-            handleEdit(params.row);
-          } }} editRowsModel={edicaoDados}/>
-        </Box>
-    )
+  return (
+    <Box>
+        <DataGrid rows={dados} columns={columns} onRowClick={(params) => {
+      if (!isInEditMode) {
+        handleEdit(params.row);
+      } }} editRowsModel={edicaoDados}/>
+    </Box>
+  )
 }

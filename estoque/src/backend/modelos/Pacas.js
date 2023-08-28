@@ -34,7 +34,7 @@ const Pecas = {
         const values = [nome, grupo, quantidade,  descricao, valorP];
         await db.query(query, values);
     
-        res.status(404).send('Peça atualizada com sucesso.');
+        res.send('Peça atualizada com sucesso.');
       } catch (ex) {
         console.log('Erro: ' + ex);
         res.status(500).send('Erro ao atualizar a peça.');

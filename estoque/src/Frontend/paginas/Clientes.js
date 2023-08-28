@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import TabelaEditavel from "../componentes/Tabela";
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
-import axios from'axios';
+import axios from "axios";
 import {Container, Box, Button, Grid, TextField} from "@mui/material";
 
 export default function CadastroC() {
@@ -36,8 +36,6 @@ export default function CadastroC() {
             .then((response) => {
                 if (response.data) {
                     const dados = response.data
-                    console.log('nome:', dados)
-                    console.log('teste', response.nome)
                     setClientes(dados)
                 }
             })
@@ -47,7 +45,7 @@ export default function CadastroC() {
     //forca recarregar os dados
     const carregarDados = async () => {
         try {
-            console.log('atualizar')
+
           axios
           .get('http://localhost:3001/listaCliente')
           .then((response) => {
@@ -80,12 +78,11 @@ export default function CadastroC() {
     // Editar cliente
     const handleUpdate = async (data) => {
         const dados = {
-            id:data.id,
+            id: data.id,
             cpf: data.cpf,
             nome: data.nome,
             contato: data.contato,
-            detalhes: data.detalhes
-        }
+            detalhes: data.detalhes}
         
             console.log('dados: ', dados)
 
@@ -95,8 +92,8 @@ export default function CadastroC() {
                 console.log(response.data);
             })
             .catch (err => console.log(err));
-        
-            carregarDados();
+
+        carregarDados();
     };
 
     // Excluir cliente
@@ -105,11 +102,12 @@ export default function CadastroC() {
             console.log('dados: ', dados)
 
         axios
-            .delete('http://localhost:3001/excluirCliente', dados)
+            .delete('http://localhost:3001/excluirCliente', {dados: dados})
             .then((response) => {
                 console.log(response.data);
             })
             .catch (err => console.log(err));
+
         carregarDados();
     };
 
@@ -117,46 +115,47 @@ export default function CadastroC() {
 
     return (
         <>
-            <Headin icones={icones} pagina='Clientes'/>
+        <Headin icones={icones} pagina='Clientes'/>
 
-            <Box sx={{backgroundColor: 'primary.dark', justifyContent: 'center', height: '92vh', padding: '20px'}}>  
-            
-            {addin ? (
-                <Box sx={{margin: '10px'}}>
-               <Container sx={{justifyContent: 'center', borderRadius: '5px', alignItems:'center', backgroundColor: 'secondary.light'}}>
-                    <form onSubmit={handleSubmit} >
-                        <Grid container spacing={2} sx={{ alignItems:'center', justifyContent: 'center'}}>
-                            <Grid item xs={12} md={3}>
-                                <TextField fullWidth label="Nome Completo" margin="dense" variant="filled" sx={{backgroundColor: 'secondary.light' }} value={nome} onChange={(e) => setNome(e.target.value)}/>
-                            </Grid>
-                            <Grid item xs={12} md={2.3}>
-                                <TextField label="CPF" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={cpf} onChange={(e) => setCpf(e.target.value)}/>
-                            </Grid>
-                            <Grid item xs={12} md={2}>
-                                <TextField label="Contato" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={contato} onChange={(e) => setContato(e.target.value)}/>
-                            </Grid>
-                            <Grid item xs={12} md={3}>
-                                <TextField id="outlined-basic" fullWidth label="Detalhes" margin="dense" sx={{backgroundColor: 'secondary.light' }} variant="filled" value={detalhes} onChange={(e) => setDetalhes(e.target.value)}/>
-                            </Grid>
-                            <Grid item xs={12} md={2} >
-                                <Button sx={{margin:2}} variant="contained" type="submit" >Cadastrar</Button>
-                            </Grid>
+        <Box sx={{backgroundColor: 'primary.dark', justifyContent: 'center', height: '92vh', padding: '20px'}}>  
+        
+        {addin ? (
+            <Box sx={{margin: '10px'}}>
+            <Container sx={{justifyContent: 'center', borderRadius: '5px', alignItems:'center', backgroundColor: 'secondary.light'}}>
+                <form onSubmit={handleSubmit} >
+                    <Grid container spacing={2} sx={{ alignItems:'center', justifyContent: 'center'}}>
+                        <Grid item xs={12} md={3}>
+                            <TextField fullWidth label="Nome Completo" margin="dense" variant="filled" sx={{backgroundColor: 'secondary.light' }} value={nome} onChange={(e) => setNome(e.target.value)}/>
                         </Grid>
-                    </form>
-                </Container>
-                </Box>
-            ) : null}
+                        <Grid item xs={12} md={2.3}>
+                            <TextField label="CPF" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={cpf} onChange={(e) => setCpf(e.target.value)}/>
+                        </Grid>
+                        <Grid item xs={12} md={2}>
+                            <TextField label="Contato" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={contato} onChange={(e) => setContato(e.target.value)}/>
+                        </Grid>
+                        <Grid item xs={12} md={3}>
+                            <TextField id="outlined-basic" fullWidth label="Detalhes" margin="dense" sx={{backgroundColor: 'secondary.light' }} variant="filled" value={detalhes} onChange={(e) => setDetalhes(e.target.value)}/>
+                        </Grid>
+                        <Grid item xs={12} md={2} >
+                            <Button sx={{margin:2}} variant="contained" type="submit" >Cadastrar</Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </Container>
+            </Box>
+        ) : null}
 
-                <Container sx={{backgroundColor: 'secondary.light', height: '75vh', padding: '20px', borderRadius: '5px'}}>
-                    <TabelaEditavel                
-                        dados={clientes}
-                        colunas={columns}
-                        salvar={handleUpdate}
-                        excluir={handleDelete}
-                        getRowId={getRowId}
-                    />  
-                </Container>                
-            </Box>                
+            <Container sx={{backgroundColor: 'secondary.light', height: '75vh', padding: '20px', borderRadius: '5px'}}>
+                <TabelaEditavel                
+                    dados={clientes}
+                    colunas={columns}
+                    salvar={handleUpdate}
+                    excluir={handleDelete}
+                    carregar={carregarDados}
+                    getRowId={getRowId}
+                />  
+            </Container>                
+        </Box>                
         </>
     );
 }

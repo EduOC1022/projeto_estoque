@@ -1,20 +1,39 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import axios from'axios';
-import Tittle from "../componentes/Typographies/Tittle";
-import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Headin from "../componentes/Typographies/Headin";
-import AddIcon from '@mui/icons-material/Add';
+import { Autocomplete, Box, Container, Grid, TextField } from "@mui/material";
 
 
 export default function Compra() {
-    const icones =[{
-                    nome: 'Adicionar',
-                    icone: <AddIcon fontSize="large"/>},
-                {
-                    nome: 'Filtrar',
-                    icone: <FilterAltIcon fontSize="large"/>}
-                ]
+
+    const [pecas, setPecas] = useState('');
+    const [fornecedores, setFornecedores] = useState('');
+    
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:3001/listaPeca')
+            .then((response) => {
+                if (response.data) {
+                    const dados = response.data
+                    setPecas(dados)
+                }
+            })
+            .catch(err => console.log(err));
+    }, []);
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:3001/listaFornecedor')
+            .then((response) => {
+                if (response.data) {
+                    const dados = response.data
+                    setFornecedores(dados)
+                }
+            })
+            .catch(err => console.log(err));
+    }, []);
+    
 
     const handleSubmit = async (data) => {
         const dados = {
@@ -34,7 +53,20 @@ export default function Compra() {
             .catch (err => console.log(err));
     };
 
-    return (
-        <Headin icones={icones} pagina='Compra'/>
+    return (        
+        <>
+        <Headin icones={[]} pagina='Compra'/>
+        <Box sx={{backgroundColor: 'primary.dark', justifyContent: 'center', height: '92vh', padding: '20px'}}>  
+            <Container disableGutters={true} sx={{backgroundColor: 'secondary.light', height: '75vh', padding: '20px', borderRadius: '5px'}} >
+                <Autocomplete
+                    options={pecas}
+                    getOptionLabel={(peca) => peca.nome}
+                    value={pecaSelecionada}
+                    renderInput={(params) => (
+                        <TextField {...params} label="Peça" variant="outlined" />)}
+                    />
+            </Container>
+        </Box>
+        </>
     );
 }

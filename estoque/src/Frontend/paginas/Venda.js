@@ -1,12 +1,7 @@
 import React from "react";
 import axios from "axios";
-import Tittle from "../componentes/Typographies/Tittle";
-import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
-import axios from "axios";
-
 
 export default function Venda() {
     const icones =[{
