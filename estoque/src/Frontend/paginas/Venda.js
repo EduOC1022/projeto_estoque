@@ -10,11 +10,11 @@ export default function Venda() {
 
     const handleSubmit = async (data) => {
         const dados = {
-            idPeca: data.idPeca,
-            idCliente: data.idCliente,
+            idpeca: data.idPeca,
+            idcliente: data.idCliente,
             qtd: data.qtd,
-            valorU: data.valorU,
-            valorTotal: data.valorTotal}
+            valoru: data.valorU,
+            valortotal: data.valorTotal}
             console.log('dados: ', dados)
 
         axios
