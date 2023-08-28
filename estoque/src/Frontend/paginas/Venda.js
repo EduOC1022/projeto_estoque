@@ -1,7 +1,5 @@
 import React from "react";
 import axios from "axios";
-import Tittle from "../componentes/Typographies/Tittle";
-import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
@@ -17,11 +15,11 @@ export default function Venda() {
                 ]
     const handleSubmit = async (data) => {
         const dados = {
-            idPeca: data.idPeca,
-            idCliente: data.idCliente,
+            idpeca: data.idPeca,
+            idcliente: data.idCliente,
             qtd: data.qtd,
-            valorU: data.valorU,
-            valorTotal: data.valorTotal}
+            valoru: data.valorU,
+            valortotal: data.valorTotal}
             console.log('dados: ', dados)
 
         axios

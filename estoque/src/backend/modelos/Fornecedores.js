@@ -33,7 +33,7 @@ const Fornecedores = {
         const values = [cnpj, nome, tipo, contato, id];
         await db.query(query, values);
     
-        res.status(404).send('Fornecedor atualizado com sucesso.');
+        res.send('Fornecedor atualizado com sucesso.');
       } catch (ex) {
         console.log('Erro: ' + ex);
         res.status(500).send('Erro ao atualizar o fornecedor.');

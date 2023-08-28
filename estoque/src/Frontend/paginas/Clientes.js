@@ -105,7 +105,7 @@ export default function CadastroC() {
             console.log('dados: ', dados)
 
         axios
-            .delete('http://localhost:3001/excluirCliente', dados)
+            .delete('http://localhost:3001/excluirCliente', {data: dados})
             .then((response) => {
                 console.log(response.data);
             })

@@ -16,7 +16,7 @@ router.get('/listaCliente', (req, res) => {
     Clientes.pesquisar(req, res);
   });
 
-router.put('/editarCliente/:id', (req, res) => {
+router.put('/editarCliente', (req, res) => {
     Clientes.editar(req, res);
     console.log('editar', req)
 });
