@@ -117,42 +117,42 @@ function CadastroFornecedor() {
     return (
     <>
     <Headin icones={icones} pagina='Fornecedores'/>
-    {addin ? (
-        <Box sx={{backgroundColor: 'primary.dark', justifyContent: 'center', alignItems:'center', padding:'10px'}}>
-            <Container sx={{justifyContent: 'center', alignItems:'center'}}>
-            <form onSubmit={handleSubmit} >
-                <Grid container spacing={2} sx={{ alignItems:'center', justifyContent: 'center'}}>
-                    <Grid item xs={12} md={3}>
-                        <TextField fullWidth label="Nome da Empresa" margin="dense" variant="filled" sx={{backgroundColor: 'secondary.light' }} value={nome} onChange={(e) => setNome(e.target.value)}/>
-                    </Grid>
-                    <Grid item xs={12} md={2.3}>
-                        <TextField label="CNPJ" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={cnpj} onChange={(e) => setCnpj(e.target.value)}/>
-                    </Grid>
-                    <Grid item xs={12} md={2}>
-                        <TextField label="Contato" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={contato} onChange={(e) => setContato(e.target.value)}/>
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <TextField id="outlined-basic" fullWidth label="Complemento" margin="dense" sx={{backgroundColor: 'secondary.light' }} variant="filled" value={tipo} onChange={(e) => setTipo(e.target.value)}/>
-                    </Grid>
-                    <Grid item xs={12} md={2} >
-                        <Button sx={{marginTop:2}} variant="contained" type="submit" >Cadastrar</Button>
-                    </Grid>
-                </Grid>
-            </form>
-            </Container>
-        </Box>
-    ) : null}
-    <Box sx={{display: 'flex', justifyContent: 'center', height: '85vh', marginTop: '10px'}}>
-            <Container sx={{backgroundColor: 'secondary.light'}}>
-                <TabelaEditavel
-                    dados={fornecedores}
-                    colunas={columns}
-                    salvar={handleUpdate}
-                    excluir={handleDelete}
-                    carregar={carregarDados}
-                    getRowId={getRowId}
-                />  
-            </Container>
+    <Box sx={{backgroundColor: 'primary.dark', justifyContent: 'center', height: '92vh', padding: '20px'}}>  
+        {addin ? (
+            <Box sx={{margin: '10px'}}>
+                <Container sx={{justifyContent: 'center', borderRadius: '5px', alignItems:'center', backgroundColor: 'secondary.light'}}>
+                    <form onSubmit={handleSubmit} >
+                        <Grid container spacing={2} sx={{ alignItems:'center', justifyContent: 'center'}}>
+                            <Grid item xs={12} md={3}>
+                                <TextField fullWidth label="Nome da Empresa" margin="dense" variant="filled" sx={{backgroundColor: 'secondary.light' }} value={nome} onChange={(e) => setNome(e.target.value)}/>
+                            </Grid>
+                            <Grid item xs={12} md={2.3}>
+                                <TextField label="CNPJ" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={cnpj} onChange={(e) => setCnpj(e.target.value)}/>
+                            </Grid>
+                            <Grid item xs={12} md={2}>
+                                <TextField label="Contato" variant="filled" margin="dense" sx={{backgroundColor: 'secondary.light' }} value={contato} onChange={(e) => setContato(e.target.value)}/>
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <TextField id="outlined-basic" fullWidth label="Complemento" margin="dense" sx={{backgroundColor: 'secondary.light' }} variant="filled" value={tipo} onChange={(e) => setTipo(e.target.value)}/>
+                            </Grid>
+                            <Grid item xs={12} md={2} >
+                                <Button sx={{margin:2}} variant="contained" type="submit" >Cadastrar</Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </Container>
+            </Box>
+        ) : null}
+    <Container sx={{backgroundColor: 'secondary.light', height: '75vh', padding: '20px', borderRadius: '5px'}}>
+            <TabelaEditavel
+                dados={fornecedores}
+                colunas={columns}
+                salvar={handleUpdate}
+                excluir={handleDelete}
+                carregar={carregarDados}
+                getRowId={getRowId}
+            />  
+        </Container>
     </Box>              
     </>
     );
