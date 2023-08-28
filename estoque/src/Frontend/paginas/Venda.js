@@ -1,8 +1,6 @@
 import React from "react";
 import Headin from "../componentes/Typographies/Headin";
 import AddIcon from '@mui/icons-material/Add';
-import axios from "axios";
-
 
 export default function Venda() {
     const icones =[{

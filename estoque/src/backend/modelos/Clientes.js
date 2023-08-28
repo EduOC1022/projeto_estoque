@@ -34,7 +34,7 @@ const Clientes = {
         const values = [cpf, nome, contato, detalhes, id];
         await db.query(query, values);
     
-        res.status(404).send('Cliente atualizado com sucesso.');
+        res.send('Cliente atualizado com sucesso.');
       } catch (ex) {
         console.log('Erro: ' + ex);
         res.status(500).send('Erro ao atualizar o cliente.');
@@ -47,7 +47,7 @@ const Clientes = {
           const query = 'DELETE FROM cliente WHERE id = $1';
           await db.query(query, [id]);
       
-          res.status(404).send('Cliente excluído com sucesso');
+          res.send('Cliente excluído com sucesso');
         } catch (error) {
           console.error(error);
           res.status(500).send('Erro ao excluir o cliente' );

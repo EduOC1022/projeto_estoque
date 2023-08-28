@@ -20,21 +20,13 @@ export default function Menu() {
       <AppBar position="static">
         <Toolbar variant="dense">
           <MenuBox/>
-          <IconButton component={Link} to="/" color= "inherit" sx={{flexGrow: 0.1}}>
+          <IconButton component={Link} to="/" color= "inherit" sx={{flexGrow: 1, justifyContent: 'left'}}>
             <HomeIcon />
           </IconButton>
-          <SearchIcon/>
-          <Box sx={{flexGrow: 1}}>
-            
-            <InputBase
-            sx={{backgroundColor: 'primary.light', paddingLeft:'10px', borderRadius: '10px'}}
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}/>
-          </Box>
           
-        <Box sx={{display: 'flex', flexGrow: 0.3, justifyContent: 'space-between'}}>
-          <MenuButton component={Link} to="/fornecedores">Fornecedores</MenuButton>
-          <MenuButton component={Link} to="/clientes">Clientes</MenuButton>
+        <Box sx={{display: 'flex', flexGrow: 0.2, justifyContent: 'space-between'}}>
+          <MenuButton component={Link} to="/compra">Compra</MenuButton>
+          <MenuButton component={Link} to="/venda">Venda</MenuButton>
           <MenuButton component={Link} to="/historico">Histórico</MenuButton>
           <MenuButton component={Link} to="/estoque">Estoque</MenuButton>
         </Box>        

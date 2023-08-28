@@ -18,12 +18,10 @@ router.get('/listaCliente', (req, res) => {
 
 router.put('/editarCliente', (req, res) => {
     Clientes.editar(req, res);
-    console.log('editar', req)
 });
 
 router.delete('/excluirCliente', (req, res) => {
     Clientes.excluir(req, res);
-    console.log('excluir', req)
   });
 
   // Fornecedores

@@ -80,7 +80,7 @@ function CadastroFornecedor() {
     // Editar fornecedor
     const handleUpdate = async (data) => {
         const dados = {
-            id:data.id,
+            id: data.id,
             cnpj: data.cnpj,
             nome: data.nome,
             tipo: data.tipo,
