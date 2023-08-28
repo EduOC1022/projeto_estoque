@@ -139,12 +139,12 @@ export default function Estoque() {
                 </Box>
             ) : null}
             <Container disableGutters={true} sx={{backgroundColor: 'secondary.light', height: '75vh', padding: '20px', borderRadius: '5px'}} >
-                <TabelaEditavel
-                    dados={pecas}
-                    colunas={columns}
-                    
-                    getRowId={getRowId}
-                    />
+                    <TabelaEditavel                
+                        dados={pecas}
+                        colunas={columns}
+                        salvar={handleUpdate}
+                        getRowId={getRowId}
+                    /> 
             </Container>
         </Box>
         </>
