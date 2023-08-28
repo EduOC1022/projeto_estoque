@@ -16,10 +16,10 @@ const Compras = {
       },  
     pesquisar: async (req, res) => {
         try {
-          const pesquisa = 'SELECT * from compra';
+          const pesquisa = 'SELECT * FROM compra INNER JOIN fornecedor ON compra.idForn = fornecedor.id INNER JOIN peca ON compra.idPeca = peca.id'
           const resultados = await db.query(pesquisa);
           const compra = resultados.rows;
-      
+
           res.json(compra);      
         }
         catch (ex) {
@@ -27,6 +27,5 @@ const Compras = {
         }
       }
   };
-
 
 module.exports = Compras;
