@@ -15,12 +15,6 @@ export default function Estoque() {
                             </Link>}];
 
     const [pecas, setPecas] = useState([]);    
-    const [nome, setNome] = useState('');
-    const [grupo, setGrupo] = useState('');
-    const [quantidade, setQuantidade] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [valorP, setValorP] = useState('');
-    const [valorT, setValorT] = useState('');
 
     //colunas das tabelas
     const columns = [
@@ -28,7 +22,7 @@ export default function Estoque() {
         { field: 'grupo', headerName: 'Grupo', width: 180, editable: true} ,
         { field: 'quantidade', headerName: 'Qtd', width: 120, editable: false },
         { field: 'descricao', headerName: 'Descrição', width: 230, editable: true},
-        { field: 'valorP', headerName: 'Valor Compra', width: 200, editable: false}
+        { field: 'valorp', headerName: 'Valor Compra', width: 200, editable: false}
         ];
 
     const getRowId = (pecas) => pecas.id;
@@ -63,27 +57,6 @@ export default function Estoque() {
         }
     };
 
-    // cadastra um nova peça
-    const handleSubmit = async (data) => {
-        const dados = {
-            nome: data.nome,
-            grupo: data.grupo,
-            quantidade: data.quantidade,
-            descricao: data.descricao,
-            valorP: data.valorP
-        }
-        
-            console.log('dados: ', dados)
-
-        axios
-            .post('http://localhost:3001/peca', dados)
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch (err => console.log(err));
-        carregarDados();
-    };
-
     // Editar peça
     const handleUpdate = async (data) => {
         const dados = {
@@ -92,7 +65,7 @@ export default function Estoque() {
             grupo: data.grupo,
             quantidade: data.quantidade,
             descricao: data.descricao,
-            valorP: data.valorP
+            valorp: data.valorp
         }
         
             console.log('dados: ', dados)

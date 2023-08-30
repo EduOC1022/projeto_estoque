@@ -61,7 +61,6 @@ export default function Compra() {
                 <Autocomplete
                     options={pecas}
                     getOptionLabel={(peca) => peca.nome}
-                    value={pecaSelecionada}
                     renderInput={(params) => (
                         <TextField {...params} label="Peça" variant="outlined" />)}
                     />
