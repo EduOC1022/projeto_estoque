@@ -4,10 +4,7 @@ import {
     AppBar,
     Box,
     IconButton,
-    InputBase,
     Toolbar} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import MenuButton from './Botoes/MenuButton';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuBox from './MenuBox';
@@ -25,8 +22,8 @@ export default function Menu() {
           </IconButton>
           
         <Box sx={{display: 'flex', flexGrow: 0.2, justifyContent: 'space-between'}}>
-          <MenuButton component={Link} to="/compra">Compra</MenuButton>
-          <MenuButton component={Link} to="/venda">Venda</MenuButton>
+          <MenuButton component={Link} to="/fornecedores">Fornecedores</MenuButton>
+          <MenuButton component={Link} to="/clientes">Clientes</MenuButton>
           <MenuButton component={Link} to="/historico">Histórico</MenuButton>
           <MenuButton component={Link} to="/estoque">Estoque</MenuButton>
         </Box>        

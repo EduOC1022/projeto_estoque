@@ -5,9 +5,12 @@ import { Autocomplete, Box, Container, Grid, TextField } from "@mui/material";
 
 
 export default function Compra() {
-
+    const [pecaSelecionada, setPecaSelecionada] = useState(null);
+    const [fornSelecionada, setFornSelecionada] = useState(null);
     const [pecas, setPecas] = useState('');
     const [fornecedores, setFornecedores] = useState('');
+    const [porcentagem, setPorcentagem] = useState('15');
+    const [valorFinal, setValorFinal] = useState('0.00');
     
 
     useEffect(() => {
@@ -16,6 +19,7 @@ export default function Compra() {
             .then((response) => {
                 if (response.data) {
                     const dados = response.data
+                    
                     setPecas(dados)
                 }
             })
@@ -33,7 +37,39 @@ export default function Compra() {
             })
             .catch(err => console.log(err));
     }, []);
+
+
+    /* useEffect(() => {
+        if (pecaSelecionada && porcentagem !== '' ) {
+            console.log('porcentagemIn: ', porcentagem)
+            console.log('peca: ', pecaSelecionada)
+          const valorInicial = pecaSelecionada.valorp;
+          console.log('valorIni: ', valorInicial)
+          const porcentagemFloat = parseFloat(porcentagem);
+          const valorAcrescido = (valorInicial * (porcentagemFloat / 100 + 1)).toFixed(2);
+          setValorFinal(valorAcrescido);
+          console.log('valorfianl: ', valorAcrescido)
+        }
+      }, [pecaSelecionada, porcentagem]);
     
+      useEffect(() => {
+        if (pecaSelecionada && valorFinal !== '' ) {
+          const valorInicial = pecaSelecionada.valorp;
+          const valorFinalFloat = parseFloat(valorFinal);
+          const porcentagemCalculada = ((valorFinalFloat / valorInicial - 1) * 100).toFixed(2);
+          setPorcentagem(porcentagemCalculada);
+        }
+      }, [pecaSelecionada, valorFinal]);
+
+      const alteraValor = async (porcentagemV, pecaSelecionada) =>{
+        console.log('porc',porcentagem)
+        const valorInicial = pecaSelecionada.valorp;
+          console.log('valorIni: ', valorInicial)
+          const porcentagemFloat = parseFloat(porcentagem);
+          const valorAcrescido = (valorInicial * ((porcentagem / 100) + 1)).toFixed(2);
+          setValorFinal(valorAcrescido);
+    }
+*/
 
     const handleSubmit = async (data) => {
         const dados = {
@@ -52,7 +88,21 @@ export default function Compra() {
             })
             .catch (err => console.log(err));
     };
+    useEffect(() => {
+        if (pecaSelecionada && porcentagem !== '' ) {
+            console.log('porcentagemIn: ', porcentagem)
+            console.log('peca: ', pecaSelecionada)
+          const valorInicial = pecaSelecionada.valorp;
+          console.log('valorIni: ', valorInicial)
+          const porcentagemFloat = parseFloat(porcentagem);
+          const valorAcrescido = (valorInicial * (porcentagemFloat / 100 + 1)).toFixed(2);
+          setValorFinal(valorAcrescido);
+          console.log('valorfianl: ', valorAcrescido)
+        }
+      }, [pecaSelecionada, porcentagem]);
 
+    
+   
     return (        
         <>
         <Headin icones={[]} pagina='Compra'/>
@@ -62,8 +112,42 @@ export default function Compra() {
                     options={pecas}
                     getOptionLabel={(peca) => peca.nome}
                     value={pecaSelecionada}
+                    onChange={(event, newValue) => {
+                        setPecaSelecionada(newValue);
+                      }}
                     renderInput={(params) => (
                         <TextField {...params} label="Peça" variant="outlined" />)}
+                />
+
+                <TextField
+                    label="Porcentagem"
+                    variant="outlined"
+                    value={porcentagem}
+                    onChange={(e, value) => {setPorcentagem(e.target.value);
+                   }}
+                />
+
+                <TextField
+                    label="Valor Final"
+                    variant="outlined"
+                    value={valorFinal}
+                    InputProps={{
+                        readOnly: true,
+                      }}
+                    onChange={(e) => setValorFinal(e.target.value)}
+                />
+                
+                <TextField
+                    label="Quantidade"
+                    variant="outlined"
+                />
+                
+                <Autocomplete
+                    options={fornecedores}
+                    getOptionLabel={(fornecedores) => fornecedores.nome}
+                    value={fornSelecionada}
+                    renderInput={(params) => (
+                        <TextField {...params} label="Fornecedor" variant="outlined" />)}
                     />
             </Container>
         </Box>

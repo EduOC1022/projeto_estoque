@@ -63,8 +63,6 @@ export default function CadastroC() {
             nome: data.nome,
             contato: data.contato,
             detalhes: data.detalhes}
-        
-            console.log('dados: ', dados)
 
         axios
             .post('http://localhost:3001/cliente', dados)
@@ -83,8 +81,6 @@ export default function CadastroC() {
             nome: data.nome,
             contato: data.contato,
             detalhes: data.detalhes}
-        
-            console.log('dados: ', dados)
 
         axios
             .put('http://localhost:3001/editarCliente', dados)
@@ -99,7 +95,6 @@ export default function CadastroC() {
     // Excluir cliente
     const handleDelete = async (data) => {
         const dados = {id: data}
-            console.log('dados: ', dados)
 
         axios
             .delete('http://localhost:3001/excluirCliente', {dados: dados})
