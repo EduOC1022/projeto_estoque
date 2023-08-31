@@ -112,6 +112,7 @@ export default function Compra() {
                     options={pecas}
                     getOptionLabel={(peca) => peca.nome}
                     value={pecaSelecionada}
+                    freeSolo
                     onChange={(event, newValue) => {
                         setPecaSelecionada(newValue);
                       }}
