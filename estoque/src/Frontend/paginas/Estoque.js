@@ -15,11 +15,6 @@ export default function Estoque() {
                             </Link>}];
 
     const [pecas, setPecas] = useState([]);    
-    const [nome, setNome] = useState('');
-    const [grupo, setGrupo] = useState('');
-    const [quantidade, setQuantidade] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [valorP, setValorP] = useState('');
 
     //colunas das tabelas
     const columns = [
@@ -59,25 +54,6 @@ export default function Estoque() {
         }
     };
 
-    // cadastra um nova peça
-    const handleSubmit = async (data) => {
-        const dados = {
-            nome: data.nome,
-            grupo: data.grupo,
-            quantidade: data.quantidade,
-            descricao: data.descricao,
-            valorP: data.valorP
-        }
-
-        axios
-            .post('http://localhost:3001/peca', dados)
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch (err => console.log(err));
-        carregarDados();
-    };
-
     // Editar peça
     const handleUpdate = async (data) => {
         const dados = {
@@ -86,7 +62,7 @@ export default function Estoque() {
             grupo: data.grupo,
             quantidade: data.quantidade,
             descricao: data.descricao,
-            valorP: data.valorP
+            valorp: data.valorp
         }
 
         axios
@@ -103,12 +79,12 @@ export default function Estoque() {
         <Headin icones={icones} pagina='Estoque'/>
         <Box sx={{backgroundColor: 'primary.dark', justifyContent: 'center', height: '92vh', padding: '20px'}}>  
             <Container disableGutters={true} sx={{backgroundColor: 'secondary.light', height: '75vh', padding: '20px', borderRadius: '5px'}} >
-                <TabelaEditavel
-                    dados={pecas}
-                    colunas={columns}
-                    salvar={handleUpdate}
-                    getRowId={getRowId}
-                    />
+                    <TabelaEditavel                
+                        dados={pecas}
+                        colunas={columns}
+                        salvar={handleUpdate}
+                        getRowId={getRowId}
+                    /> 
             </Container>
         </Box>
         </>

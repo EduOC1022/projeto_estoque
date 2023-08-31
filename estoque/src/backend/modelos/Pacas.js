@@ -5,7 +5,7 @@ const Pecas = {
       console.log('req: ',req)
       try {
         const {nome, grupo, quantidade,  descricao, valorP} = req.body;
-        const query = 'INSERT INTO peca (nome, grupo, quantidade,  descricao, valorP) VALUES ($1, $2, $3, $4) RETURNING *';
+        const query = 'INSERT INTO peca (nome, grupo, quantidade,  descricao, valorp) VALUES ($1, $2, $3, $4, $5) RETURNING *';
         const values = [nome, grupo, quantidade,  descricao, valorP];
         await db.query(query, values);
     } catch (ex) {
@@ -29,9 +29,9 @@ const Pecas = {
   },
     editar: async (req, res) => {
       try {
-        const {nome, grupo, quantidade,  descricao, valorP} = req.body;
-        const query =  'UPDATE peca SET nome = $1, grupo = $2, quantidade = $3, descricao = $4, valorP = $5 WHERE id = $6';
-        const values = [nome, grupo, quantidade,  descricao, valorP];
+        const {nome, grupo, quantidade,  descricao, valorp, id} = req.body;
+        const query =  'UPDATE peca SET nome = $1, grupo = $2, quantidade = $3, descricao = $4, valorp = $5 WHERE id = $6';
+        const values = [nome, grupo, quantidade,  descricao, valorp, id];
         await db.query(query, values);
     
         res.send('Peça atualizada com sucesso.');
