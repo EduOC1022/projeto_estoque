@@ -4,10 +4,7 @@ import {
     AppBar,
     Box,
     IconButton,
-    InputBase,
     Toolbar} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import MenuButton from './Botoes/MenuButton';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuBox from './MenuBox';

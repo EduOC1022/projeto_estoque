@@ -57,14 +57,14 @@ export default function CadastroC() {
       };
 
     // cadastra um novo cliente
-    const handleSubmit = async (data) => {
+    const handleSubmit = async () => {
         const dados = {
-            cpf: data.cpf,
-            nome: data.nome,
-            contato: data.contato,
-            detalhes: data.detalhes}
-        
-            console.log('dados: ', dados)
+            cpf: cpf,
+            nome: nome,
+            contato: contato,
+            detalhes: detalhes}
+
+            console.log('dados:',dados)
 
         axios
             .post('http://localhost:3001/cliente', dados)
@@ -72,7 +72,6 @@ export default function CadastroC() {
                 console.log(response.data);
             })
             .catch (err => console.log(err));
-        // carregarDados();
     };
 
     // Editar cliente
@@ -83,8 +82,6 @@ export default function CadastroC() {
             nome: data.nome,
             contato: data.contato,
             detalhes: data.detalhes}
-        
-            console.log('dados: ', dados)
 
         axios
             .put('http://localhost:3001/editarCliente', dados)
@@ -93,13 +90,12 @@ export default function CadastroC() {
             })
             .catch (err => console.log(err));
 
-
+        carregarDados();
     };
 
     // Excluir cliente
     const handleDelete = async (data) => {
         const dados = {id: data}
-            console.log('dados: ', dados)
 
         axios
             .delete('http://localhost:3001/excluirCliente', {data: dados})

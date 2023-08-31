@@ -34,9 +34,6 @@ export default function Estoque() {
             .then((response) => {
                 if (response.data) {
                     const dados = response.data
-                    /* dados.forEach((peca) => {
-                        peca.valorP 
-                    }) */
                     setPecas(dados)
                 }
             })
@@ -46,11 +43,11 @@ export default function Estoque() {
     //forca recarregar os peças
     const carregarDados = async () => {
         try {
-            console.log('atualizar')
+
         axios
-        .get('http://localhost:3001/listaPeca')
-        .then((response) => {
-            setPecas(response.data);
+            .get('http://localhost:3001/listaPeca')
+            .then((response) => {
+                setPecas(response.data);
         })
         } catch (error) {
         console.error(error);
@@ -67,13 +64,10 @@ export default function Estoque() {
             descricao: data.descricao,
             valorp: data.valorp
         }
-        
-            console.log('dados: ', dados)
 
         axios
             .put('http://localhost:3001/editarPeca', dados)
             .then((response) => {
-                console.log(response.data);
             })
             .catch (err => console.log(err));
         
