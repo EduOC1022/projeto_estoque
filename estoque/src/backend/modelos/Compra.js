@@ -18,7 +18,7 @@ const Compras = {
       },  
     pesquisar: async (req, res) => {
         try {
-          const pesquisa = `SELECT fornecedor.nome AS nomeFornecedor, peca.nome AS nomePeca, data, qtdCompra, valorU, valorTotal 
+          const pesquisa = `SELECT compra.id AS id, fornecedor.nome AS nomeFornecedor, peca.nome AS nomePeca, TO_CHAR(data, 'DD/MM/YYYY') AS data_formatada, qtdCompra, valorU, valorTotal 
                             FROM compra 
                             INNER JOIN fornecedor ON compra.idForn = fornecedor.id 
                             INNER JOIN peca ON compra.idPeca = peca.id`

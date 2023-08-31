@@ -16,7 +16,10 @@ const Vendas = {
       },  
     pesquisar: async (req, res) => {
         try {
-          const pesquisa = 'SELECT peca.nome AS nomePeca, cliente.nome AS nomeCliente, data, qtd, valorU, valorTotal FROM venda INNER JOIN peca ON venda.idpeca = peca.id INNER JOIN cliente ON venda.idcliente = cliente.id';
+          const pesquisa = `SELECT venda.id AS id, peca.nome AS nomePeca, cliente.nome AS nomeCliente, TO_CHAR(data, 'DD/MM/YYYY') AS data_formatada, venda.qtd AS qtdVenda, valorU, valorTotal 
+                            FROM venda 
+                            INNER JOIN peca ON venda.idpeca = peca.id 
+                            INNER JOIN cliente ON venda.idcliente = cliente.id`;
           const resultados = await db.query(pesquisa);
           const venda = resultados.rows;
       
