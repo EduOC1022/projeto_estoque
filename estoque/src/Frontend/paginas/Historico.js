@@ -16,6 +16,18 @@ export default function Historico() {
                     icone: <FilterAltIcon fontSize="large"/>}];
 
     return (
+        <>
         <Headin icones={icones} pagina='Historico'/>
+        <Container sx={{backgroundColor: 'secondary.light', height: '75vh', padding: '20px', borderRadius: '5px'}}>
+            <TabelaEditavel
+                dados={fornecedores}
+                colunas={columns}
+                salvar={handleUpdate}
+                excluir={handleDelete}
+                carregar={carregarDados}
+                getRowId={getRowId}
+            />  
+        </Container>
+        </>
     );
 }

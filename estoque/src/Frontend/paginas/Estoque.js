@@ -77,7 +77,7 @@ export default function Estoque() {
             })
             .catch (err => console.log(err));
         
-            carregarDados();
+            // carregarDados();
     };
 
     return (

@@ -25,8 +25,8 @@ export default function Menu() {
           </IconButton>
           
         <Box sx={{display: 'flex', flexGrow: 0.2, justifyContent: 'space-between'}}>
-          <MenuButton component={Link} to="/compra">Compra</MenuButton>
-          <MenuButton component={Link} to="/venda">Venda</MenuButton>
+          <MenuButton component={Link} to="/fornecedores">Fornecedores</MenuButton>
+          <MenuButton component={Link} to="/clientes">Clientes</MenuButton>
           <MenuButton component={Link} to="/historico">Histórico</MenuButton>
           <MenuButton component={Link} to="/estoque">Estoque</MenuButton>
         </Box>        
