@@ -125,7 +125,7 @@ export default function Historico() {
             console.log('dados: ', dados)
 
         axios
-            .put('http://localhost:3001/editarCompra', dados)
+            .put('http://localhost:3001/editarVenda', dados)
             .then((response) => {
                 console.log(response.data);
             })
@@ -135,9 +135,9 @@ export default function Historico() {
     return (
         <>
         <Headin icones={icones} pagina='Historico'/>
-        <Box sx={{backgroundColor: 'primary.dark', display:'flex', flexWrap:'wrap', justifyContent: 'center', height: '92vh', padding: '20px'}}> 
+        <Box sx={{backgroundColor: 'primary.dark', display:'flex', flexWrap:'wrap', justifyContent: 'center', padding: '20px', rowGap:'2vh'}}> 
         <Container md={6} sx={{backgroundColor: 'secondary.light', height: '75vh', width:'95vh', padding: '20px', borderRadius: '5px'}}>
-        <Tittle></Tittle>
+        <Tittle sx={{marginBottom:"10px"}}><h6>Compras</h6></Tittle>
             <TabelaEditavel
                 dados={compras}
                 colunas={columnsCompra}
@@ -148,7 +148,7 @@ export default function Historico() {
             
         </Container>
         <Container sx={{backgroundColor: 'secondary.light', height: '75vh', width:'95vh', padding: '20px', borderRadius: '5px'}}>
-            <h3></h3>
+        <Tittle sx={{marginBottom:"10px"}}><h6>Vendas</h6></Tittle>
             <TabelaEditavel
                 dados={vendas}
                 colunas={columnsVenda}
