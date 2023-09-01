@@ -16,10 +16,6 @@ import {
 export default function Historico() {
     const icones =[{}];
 
-    // const [cnpj, setCnpj] = useState('');
-    // const [nome, setNome] = useState('');
-    // const [tipo, setTipo] = useState('');
-    // const [contato, setContato] = useState('');
     const [compras, setCompras] = useState('');
     const [vendas, setVendas] = useState('');
 
