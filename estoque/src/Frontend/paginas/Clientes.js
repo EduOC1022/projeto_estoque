@@ -89,25 +89,7 @@ export default function CadastroC() {
                 console.log(response.data);
             })
             .catch (err => console.log(err));
-
-        //carregarDados();
     };
-
-    // // Excluir cliente
-    // const handleDelete = async (data) => {
-    //     const dados = {id: data}
-
-    //     axios
-    //         .delete('http://localhost:3001/excluirCliente', {data: dados})
-    //         .then((response) => {
-    //             console.log(response.data);
-    //         })
-    //         .catch (err => console.log(err));
-
-    //     carregarDados();
-    // };
-
-
 
     return (
         <>
