@@ -90,7 +90,7 @@ export default function CadastroC() {
             })
             .catch (err => console.log(err));
 
-        carregarDados();
+        //carregarDados();
     };
 
     // Excluir cliente

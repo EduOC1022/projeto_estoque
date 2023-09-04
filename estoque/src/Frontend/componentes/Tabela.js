@@ -1,18 +1,17 @@
 import React, {useState} from "react";
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import { DataGrid,
     GridActionsCellItem} from '@mui/x-data-grid';
 import {Box} from "@mui/material";
+import { useDemoData } from '@mui/x-data-grid-generator';
 
 
 
 export default function TabelaEditavel (props) {
-    const { colunas, dados, salvar, excluir, carregar} = props
-    /* const [editedRows, setEditedRows] = useState({});
-    const [editable, setEditable] = useState(false) */
+
+    const { colunas, dados, salvar, carregar} = props
     const [isInEditMode, setIsInEditMode] = useState(false)
     const [editableRows, setEditableRows] = useState(new Set());
     const [edicaoDados, setEdicaoDados] = useState({});
@@ -64,11 +63,6 @@ export default function TabelaEditavel (props) {
                         setEditableRows(new Set([params.row.id]));
                       }}
                     />
-                    <GridActionsCellItem
-                    icon={<DeleteIcon />}
-                    label="Delete"
-                    onClick={() => excluir(params.row.id)}
-                    />
                 </>
                 );
             }
@@ -82,8 +76,9 @@ export default function TabelaEditavel (props) {
   };
  
   return (
-    <Box>
-        <DataGrid rows={dados} columns={columns} onRowClick={(params) => {
+    <Box sx={{height: '100%' }}>
+        <DataGrid 
+                 rows={dados} columns={columns} onRowClick={(params) => {
       if (!isInEditMode) {
         handleEdit(params.row);
       } }} editRowsModel={edicaoDados}/>

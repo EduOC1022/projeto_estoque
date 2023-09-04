@@ -4,9 +4,9 @@ const Pecas = {
     cadastrar: async (req, res) => {
       console.log('req: ',req)
       try {
-        const {nome, grupo, quantidade,  descricao, valorP} = req.body;
+        const {nome, grupo, quantidade,  descricao, valorp} = req.body;
         const query = 'INSERT INTO peca (nome, grupo, quantidade,  descricao, valorp) VALUES ($1, $2, $3, $4, $5) RETURNING *';
-        const values = [nome, grupo, quantidade,  descricao, valorP];
+        const values = [nome, grupo, quantidade,  descricao, valorp];
         await db.query(query, values);
     } catch (ex) {
         console.log("Erro: ", ex);
