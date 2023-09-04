@@ -30,7 +30,20 @@ const Compras = {
         catch (ex) {
           console.log("Erro: ", ex)
         }
-      }
+      },
+    editar: async (req, res) => {
+        try {
+          const {idForn, idPeca, data, qtdCompra, valorU, valorTotal, id} = req.body;
+          const query =  'UPDATE compra SET nomeFornecedor = $1, nomePeca = $2, tipo = $3, contato = $4 WHERE id = $5';
+          const values = [idForn, idPeca, data, qtdCompra, valorU, valorTotal, id];
+          await db.query(query, values);
+      
+          res.send('Compra atualizada com sucesso.');
+        } catch (ex) {
+          console.log('Erro: ' + ex);
+          res.status(500).send('Erro ao atualizar a compra.');
+        }
+    }
   };
 
 module.exports = Compras;

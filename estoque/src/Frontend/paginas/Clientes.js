@@ -93,19 +93,19 @@ export default function CadastroC() {
         //carregarDados();
     };
 
-    // Excluir cliente
-    const handleDelete = async (data) => {
-        const dados = {id: data}
+    // // Excluir cliente
+    // const handleDelete = async (data) => {
+    //     const dados = {id: data}
 
-        axios
-            .delete('http://localhost:3001/excluirCliente', {data: dados})
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch (err => console.log(err));
+    //     axios
+    //         .delete('http://localhost:3001/excluirCliente', {data: dados})
+    //         .then((response) => {
+    //             console.log(response.data);
+    //         })
+    //         .catch (err => console.log(err));
 
-        carregarDados();
-    };
+    //     carregarDados();
+    // };
 
 
 
@@ -146,7 +146,7 @@ export default function CadastroC() {
                     dados={clientes}
                     colunas={columns}
                     salvar={handleUpdate}
-                    excluir={handleDelete}
+                    // excluir={handleDelete}
                     carregar={carregarDados}
                     getRowId={getRowId}
                 />  

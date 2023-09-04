@@ -96,21 +96,21 @@ function CadastroFornecedor() {
             .catch (err => console.log(err));
     };
 
-    // Excluir fornecedor
-    const handleDelete = async (data) => {
-        const dados = {
-            id:data}
+    // // Excluir fornecedor
+    // const handleDelete = async (data) => {
+    //     const dados = {
+    //         id:data}
         
-            console.log('dados: ', dados)
+    //         console.log('dados: ', dados)
 
-        axios
-            .delete('http://localhost:3001/excluirFornecedor', {data: dados})
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch (err => console.log(err));
-        carregarDados();
-    };
+    //     axios
+    //         .delete('http://localhost:3001/excluirFornecedor', {data: dados})
+    //         .then((response) => {
+    //             console.log(response.data);
+    //         })
+    //         .catch (err => console.log(err));
+    //     carregarDados();
+    // };
 
     return (
     <>
@@ -141,12 +141,14 @@ function CadastroFornecedor() {
                 </Container>
             </Box>
         ) : null}
-    <Container sx={{backgroundColor: 'secondary.light', height: '75vh', padding: '20px', borderRadius: '5px'}}>
+    <Container sx={{backgroundColor: 'secondary.light', height: '90vh', padding: '20px', borderRadius: '5px'}}>
             <TabelaEditavel
                 dados={fornecedores}
                 colunas={columns}
+                // paginationModel={{page:0, pagesize:5}}
+                pageSize={5}
                 salvar={handleUpdate}
-                excluir={handleDelete}
+                // excluir={handleDelete}
                 carregar={carregarDados}
                 getRowId={getRowId}
             />  
