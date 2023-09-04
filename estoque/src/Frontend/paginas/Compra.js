@@ -23,6 +23,7 @@ export default function Compra() {
     const [qtdSelecionada, setQtdSelecionada] = useState('0');    
     const [valorSelecionado, setValorSelecionado] = useState('0.00');
     const [valorTSelecionado, setValorTSelecionado] = useState('0.00');
+    const [qtdMin, setQtdMin] = useState('1')
     
 
     useEffect(() => {
@@ -68,7 +69,8 @@ export default function Compra() {
             grupo: tipoSelecionado,
             quantidade: qtdSelecionada,
             descricao: descrSelecionado,
-            valorp: valorSelecionado              
+            valorp: valorSelecionado,
+            qtdminima: qtdMin              
         }
         console.log('dados:', dadosP)
         console.log('dados:', novaPeca)
@@ -88,7 +90,8 @@ export default function Compra() {
             grupo: tipoSelecionado,
             quantidade: pecaSelecionada.quantidade,
             descricao: descrSelecionado,
-            valorp: valorSelecionado
+            valorp: valorSelecionado,
+            qtdminima: qtdMin 
         }
 
         axios
@@ -103,7 +106,7 @@ export default function Compra() {
         idForn: fornSelecionada.id,
         idPeca: pecaSelecionada.id,
         data: dataSelecionada,
-        qtdcompra: (parseFloat(qtdSelecionada) + parseFloat(pecaBD.quantidade)),
+        qtdcompra: (qtdSelecionada + pecaBD.quantidade),
         valoru: valorSelecionado,
         valorTotal: valorTSelecionado        }
 
@@ -116,15 +119,11 @@ export default function Compra() {
     };
  
      const handlePeca = async (pecaselecionada) => {
-        console.log('peca2: ',pecaselecionada)
             
         setPecaBD (pecaselecionada);
-        console.log('selct: ', pecaBD)
-            if (pecaselecionada) {
-                setTipoSelecionado(pecaselecionada.grupo);
-            } else {
-                setTipoSelecionado('teste'); // Limpar o campo de grupo se a peça não for encontrada
-            }
+            setTipoSelecionado(pecaselecionada.grupo);
+            setDescrSelecionado(pecaselecionada.descricao);
+            setValorSelecionado(pecaselecionada.valorp);
         
         
     }
@@ -134,7 +133,7 @@ export default function Compra() {
       };
 
       const handleEdit = (event) => {
-        setValorTSelecionado(event.target.value * qtdSelecionada);
+        setValorTSelecionado((event.target.value * qtdSelecionada).toFixed(2));
       };
    
     return (        
@@ -231,7 +230,7 @@ export default function Compra() {
                             <TextField
                                 label={'Valor Total'}
                                 value={valorTSelecionado}
-                                onChange={(event) => {setValorTSelecionado(event.target.value); handleSubmit()}}
+                                onChange={(event) => {setValorTSelecionado(event.target.value)}}
                             
                             />
                         </Grid>
