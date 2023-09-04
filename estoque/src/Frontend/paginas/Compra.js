@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import axios from'axios';
 import Headin from "../componentes/Typographies/Headin";
 import dayjs from 'dayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Autocomplete, Box, Button, Container,  Grid,  TextField } from "@mui/material";
 
 
@@ -187,14 +187,7 @@ export default function Compra() {
                             onChange={(e) => setDescrSelecionado(e.target.value)}/>)}
                     />                
                                         
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                        //defaultValue={dayjs('2022-04-17')}
-                        label={"Data da Compra"}
-                        value={dataSelecionada}
-                        onChange={(newValue) => setDataSelecionada(newValue)}
-                        />
-                    </LocalizationProvider>
+
 
                     <TextField
                         label={'Quantidade'}

@@ -140,6 +140,7 @@ export default function Historico() {
                 salvar={handleUpdateCompra}
                 // carregar={carregarDados}
                 getRowId={getRowIdCompra}
+                sx={{}}
             />  
             
         </Container>

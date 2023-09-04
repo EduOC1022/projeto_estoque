@@ -25,7 +25,7 @@ export default function Menu() {
           <MenuButton component={Link} to="/fornecedores">Fornecedores</MenuButton>
           <MenuButton component={Link} to="/clientes">Clientes</MenuButton>
           <MenuButton component={Link} to="/historico">Histórico</MenuButton>
-          <MenuButton component={Link} to="/estoque">Estoque</MenuButton>
+          {/* <MenuButton component={Link} to="/estoque">Estoque</MenuButton> */}
         </Box>        
         </Toolbar>
       </AppBar>      
