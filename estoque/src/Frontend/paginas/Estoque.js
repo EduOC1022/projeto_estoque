@@ -20,7 +20,7 @@ export default function Estoque() {
     const columns = [
         { field: 'nome', headerName: 'Nome', width: 230, editable: true },
         { field: 'grupo', headerName: 'Grupo', width: 180, editable: true} ,
-        { field: 'quantidade', headerName: 'Qtd', width: 120, editable: false },
+        { field: 'quantidade', headerName: 'Qtd', width: 120, editable: false, sortComparator: (v1, v2) => v2 - v1},
         { field: 'descricao', headerName: 'Descrição', width: 230, editable: true},
         { field: 'valorp', headerName: 'Valor Compra', width: 200, editable: false}
         ];
@@ -84,6 +84,7 @@ export default function Estoque() {
                         colunas={columns}
                         salvar={handleUpdate}
                         getRowId={getRowId}
+                        rowsPerPageOptions={5}
                     /> 
             </Container>
         </Box>
