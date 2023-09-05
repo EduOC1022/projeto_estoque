@@ -20,7 +20,7 @@ export default function Compra() {
     const [descrSelecionado, setDescrSelecionado] = useState();
     const [fornSelecionada, setFornSelecionada] = useState();
     const [dataSelecionada, setDataSelecionada] = useState();
-    const [qtdSelecionada, setQtdSelecionada] = useState('0');    
+    const [qtdSelecionada, setQtdSelecionada] = useState(0);    
     const [valorSelecionado, setValorSelecionado] = useState('0.00');
     const [valorTSelecionado, setValorTSelecionado] = useState('0.00');
     const [qtdMin, setQtdMin] = useState('1')
@@ -88,7 +88,7 @@ export default function Compra() {
             id: pecaSelecionada.id,
             nome: pecaSelecionada.nome,
             grupo: tipoSelecionado,
-            quantidade: pecaSelecionada.quantidade,
+            quantidade: (pecaSelecionada.quantidade + qtdSelecionada),
             descricao: descrSelecionado,
             valorp: valorSelecionado,
             qtdminima: qtdMin 
@@ -103,12 +103,13 @@ export default function Compra() {
         }
 
         const dadosC = {            
-        idForn: fornSelecionada.id,
-        idPeca: pecaSelecionada.id,
+        idforn: fornSelecionada.id,
+        idpeca: pecaSelecionada.id,
         data: dataSelecionada,
-        qtdcompra: (qtdSelecionada + pecaBD.quantidade),
-        valoru: valorSelecionado,
-        valorTotal: valorTSelecionado        }
+        qtdcompra: (parseInt(qtdSelecionada)),
+        valoru: (parseFloat(valorSelecionado)),
+        valortotal: valorTSelecionado        }
+        console.log('teste',dadosC)
 
         axios
             .post('http://localhost:3001/compra', dadosC)
@@ -121,15 +122,15 @@ export default function Compra() {
      const handlePeca = async (pecaselecionada) => {
             
         setPecaBD (pecaselecionada);
-            setTipoSelecionado(pecaselecionada.grupo);
-            setDescrSelecionado(pecaselecionada.descricao);
-            setValorSelecionado(pecaselecionada.valorp);
+        setTipoSelecionado(pecaselecionada.grupo);
+        setDescrSelecionado(pecaselecionada.descricao);
+        setValorSelecionado(pecaselecionada.valorp);
         
         
     }
 
       const handleChange = (event) => {
-        //setTipoSelecionado(event.target.value);
+        setValorTSelecionado((event.target.value * pecaSelecionada.valorp).toFixed(2));
       };
 
       const handleEdit = (event) => {
@@ -143,7 +144,7 @@ export default function Compra() {
             <Container disableGutters={true} sx={{backgroundColor: 'secondary.light', height: '75vh', padding: '20px', borderRadius: '5px'}} >
                 <form onSubmit={handleSubmit} >
                     <Grid container spacing={2} sx={{ alignItems:'center', justifyContent: 'center'}}>
-                        <Grid item xs={6}>
+                        <Grid item xs={8}>
                             <Autocomplete
                             options={fornecedores}
                             getOptionLabel={(fornecedores) => fornecedores.nome}
@@ -155,15 +156,14 @@ export default function Compra() {
                             }}
                             />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={8}>
                             <Autocomplete
                             options={pecas}
                             getOptionLabel={(pecas) => pecas.nome}
                             value={pecaSelecionada}
                             onChange={(e, value) => {
                                 setPecaSelecionada(value);
-                                handlePeca(value);
-                                handleChange(e);                        
+                                handlePeca(value);                     
                             }}                        
                             freeSolo
                             renderInput={(params) => (
@@ -172,7 +172,7 @@ export default function Compra() {
                                                     setNovaPeca(true);}}/>)}
                             />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={8}>
                             <Autocomplete
                             options={pecas}
                             getOptionLabel={(pecas) => pecas.grupo}
@@ -186,7 +186,7 @@ export default function Compra() {
                                 onChange={(e) => setTipoSelecionado(e.target.value)}/>)}
                              />  
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={8}>
                             <Autocomplete
                             options={pecas}
                             getOptionLabel={(pecas) => pecas.descricao}
@@ -200,7 +200,9 @@ export default function Compra() {
                                 onChange={(e) => setDescrSelecionado(e.target.value)}/>)}
                             />               
                         </Grid>
-                        <Grid item xs={3}>
+                    </Grid>     
+                    <Grid container spacing={2} marginTop= {1} sx={{ alignItems:'center', justifyContent: 'center'}}>
+                        <Grid item xs={2}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                 //defaultValue={dayjs('2022-04-17')}
@@ -215,7 +217,7 @@ export default function Compra() {
                             <TextField
                                     label={'Quantidade'}
                                     value={qtdSelecionada}
-                                    onChange={(event) => setQtdSelecionada(event.target.value)}
+                                    onChange={(event) => {setQtdSelecionada(event.target.value); handleChange(event)}}
                             />                                
                         </Grid>
                         <Grid item  xs={2}>
@@ -223,22 +225,21 @@ export default function Compra() {
                                 label={'Valor Unitário'}
                                 value={valorSelecionado}
                                 onChange={(event) => {handleEdit(event); setValorSelecionado(event.target.value)}}
-                            />
-                                
+                            />                                
                         </Grid>
-                        <Grid item xs={2}  >
+                        <Grid item xs={2} >
                             <TextField
                                 label={'Valor Total'}
                                 value={valorTSelecionado}
-                                onChange={(event) => {setValorTSelecionado(event.target.value)}}
-                            
+                                onChange={(event) => {setValorTSelecionado(event.target.value); handleSubmit()}}                            
                             />
                         </Grid>
-                        <Grid item >
+                    </Grid>
+                    <Grid container spacing={2} sx={{ alignItems:'center', justifyContent: 'center'}}>
+                        <Grid item xs={3}>
                             <Button sx={{margin:2}}  variant="contained" type="submit">Enviar</Button>
-                         </Grid >
-                    </Grid>     
-
+                        </Grid>
+                    </Grid>
                     
                 </form>
             </Container>

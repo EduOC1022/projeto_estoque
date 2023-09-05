@@ -144,7 +144,7 @@ export default function Historico() {
             />  
             
         </Container>
-        <Container sx={{backgroundColor: 'secondary.light', height: '75vh', width:'95vh', padding: '20px', borderRadius: '5px'}}>
+        <Container sx={{backgroundColor: 'secondary.light', height: '75vh', width:'95vh', padding: '20px', borderRadius: '5px' }}>
         <Tittle sx={{marginBottom:"10px"}}><h6>Vendas</h6></Tittle>
             <TabelaEditavel
                 dados={vendas}

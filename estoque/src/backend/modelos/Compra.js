@@ -4,11 +4,11 @@ const Compras = {
     cadastrar: async (req, res) => {
         console.log('req: ',req)
         try {
-          const {idForn, idPeca, data, qtdCompra, valorU, valorTotal} = req.body;
-          const query =  `INSERT INTO compra (idForn, idPeca, data, qtdCompra, valorU, valorTotal) 
+          const {idforn, idpeca, data, qtdcompra, valoru, valortotal} = req.body;
+          const query =  `INSERT INTO compra (idforn, idpeca, data, qtdcompra, valoru, valortotal) 
                           VALUES ($1, $2, $3, $4, $5, $6) 
                           RETURNING *`;
-          const values = [idForn, idPeca, data, qtdCompra, valorU, valorTotal];
+          const values = [idforn, idpeca, data, qtdcompra, valoru, valortotal];
           await db.query(query, values);
         } 
         catch (ex) {

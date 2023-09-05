@@ -13,7 +13,7 @@ export default function Venda() {
     const [valorU, setValorU] = useState('0.00');
     const [valorFinal, setValorFinal] = useState('0.00');    
     const [clientes, setClientes] = useState([]);
-    const [clienteSelecionado, setClienteSelecionado] = useState([]);
+    const [clienteSelecionado, setClienteSelecionado] = useState();
 
 
     useEffect(() => {
@@ -95,7 +95,7 @@ export default function Venda() {
                             <TextField {...params} label="Cliente" variant="outlined" />)}
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={8}>
                     <Autocomplete
                         options={pecas}
                         getOptionLabel={(peca) => peca.nome}
@@ -107,6 +107,8 @@ export default function Venda() {
                             <TextField {...params} label="Peça" variant="outlined" />)}
                     />
                 </Grid>
+            </Grid>
+            <Grid container spacing={2} marginTop= {1} sx={{ alignItems:'center', justifyContent: 'center'}}>
                 <Grid item xs={2}>
                     <TextField
                         label="Porcentagem"
@@ -115,10 +117,8 @@ export default function Venda() {
                         onChange={(e, value) => {setPorcentagem(e.target.value);
                     }}
                     />
-                </Grid>
-            </Grid>
-            <Grid container spacing={2} sx={{ alignItems:'center', justifyContent: 'center'}}>
-                <Grid item xs={3}>
+                </Grid>            
+                <Grid item xs={2}>
                     <TextField
                         label="Valor Peça"
                         variant="outlined"
@@ -136,13 +136,18 @@ export default function Venda() {
                         onChange={(e) => {setQuantidade(e.target.value); }}
                     />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                     <TextField
-                        label="Valor Peça"
+                        label="Valor Total "
                         variant="outlined"
                         value={valorFinal}
                         onChange={(e) => {setValorFinal(e.target.value); handleSubmit()}}
                     />
+                </Grid> 
+            </Grid>
+            <Grid container spacing={2} marginTop= {1} sx={{ alignItems:'center', justifyContent: 'center'}}>
+                <Grid item xs={1}>
+                    <Button variant="contained" onClick={() =>handleSubmit()}>Enviar</Button>
                 </Grid>
             </Grid>
         
@@ -156,7 +161,7 @@ export default function Venda() {
            
 
             
-            <Button variant="contained" onClick={() =>handleSubmit()}>Enviar</Button>
+            
             
         </Container>
     </Box>

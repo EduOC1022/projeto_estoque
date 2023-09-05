@@ -61,7 +61,7 @@ export default function TabelaEditavel(props) {
   ];
 
   return (
-    <Box sx={{ height: "100%" }}>
+    <Box sx={{ height: "90%" }}>
       <DataGrid
         rows={dados}
         columns={columns}
